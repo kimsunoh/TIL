@@ -87,7 +87,8 @@ Thread threa = new Thread( runnable );
 
 ---
 ## 참고링크
-* SlideShare - [java 8 람다식 소개와 의미 고찰](https://www.slideshare.net/gyumee/java-8-lambda-35352385)
-* BLOG - [Java 8 람다 표현식 자세히 살펴보기](https://skyoo2003.github.io/post/2016/11/09/java8-lambda-expression)
-* NAVER D2 - [람다가 이끌어 갈 모던 Java](http://d2.naver.com/helloworld/4911107)
-* WIKI pedia - [함수형 프로그래밍](https://ko.wikipedia.org/wiki/함수형_프로그래밍)
+* [SlideShare - java 8 람다식 소개와 의미 고찰](https://www.slideshare.net/gyumee/java-8-lambda-35352385)
+* [BLOG - Java 8 람다 표현식 자세히 살펴보기](https://skyoo2003.github.io/post/2016/11/09/java8-lambda-expression)
+* [NAVER D2 - 람다가 이끌어 갈 모던 Java](http://d2.naver.com/helloworld/4911107)
+* [WIKI pedia - 함수형 프로그래밍](https://ko.wikipedia.org/wiki/함수형_프로그래밍)
+* [나만 모르고 있던 모던 - Java9](http://www.popit.kr/나만-모르고-있던-java9-빠르게-보기/)
