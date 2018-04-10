@@ -3,7 +3,7 @@
 - weak generational hypothesis에 의한다
 	- 대부분의 객체는 금방 접근 불가능 상태(unreachable)가 된다
 	- 오래된 객체에서 젊은 객체로의 참고는 아주 적다
-- 가설의 장점을 최대한 살리기 위해 HotSpot VM에서는 크게 2개로 물리적 공간으로 나누어짐
+	- 가설의 장점을 최대한 살리기 위해 HotSpot VM에서는 크게 2개로 물리적 공간으로 나누어짐
 
 ## stop-the-world
 - GC를 실행하기 위해 JVM이 애플리케이션 실행을 멈추는 것
@@ -125,6 +125,42 @@
 	- 위에서 설명된 GC들 중에서 가장 빠르다
 		- JDK 7에서부터 정식 포함됨
 
+## GC Algorithms
+### Default Collector
+- Minor GC에 Scavenge, Major GC에 Mark&compact 알고리즘을 사용하는 방법
+
+### Parallel GC
+- Minor GC를 동시에 여러개의 Thread를 이용해서 GC를 수행하는 방법
+- 죄소한 4CPU와 256M 정도의 메모리를 가진 HW에서 유용함
+	- 1CPU의 경우 MutiThread에 대한 자원이나 계산등을 위해서 CPU Power가 사용되기 때문, 역효과
+- 방식 결정 옵션
+	- Low-pause, Throughput 방식이 있음
+- 쓰레드 개수 설정 옵션
+	- XX:ParallelGCThreads 
+	- 몇개의 Thread를 이용하여 Parallel GC에 사용되는 Thread의 수 지정 가능
+
+#### Low-pause 방식
+- CMS, G1 두 방식이 있음
+	- CMS는 고급튜닝을 요구함
+	- G1은 JDK 7에서의 가용성 이후로 상당히 안정성이 높아짐, JDK 9에서는 Default
+- FullGC가 발생할때 Concurrent GC 방법과 함께 사용가능
+- GC를 빨리 하는 것이 아니라 Stop-the-world를 최소화 하는데 중점을 둠
+
+#### Throughput 방식
+- MinorGC가 발생했을 때 빨리수행 하도록 병렬처리 하는데 중점을 둠
+	- Major GC할 때 Mark&Compact 방법(Default)을 사용하도록 함
+
+### Concurrent GC
+- Full GC에 의해서 발생하는 Stop-the-world 현상을 최소화하기 위한 GC 방법
+- 일부는 Application이 돌아가는 단계에서 일부 FullGC를 수행, 최소한의 GC작업만 Application이 멈췄을 때 수행
+- stop-the-world 상태에선 initial-mark, remark 작업만 수행
+
+### Incremental GC ( Train GC )
+- Full GC에 의해서 발생하는 Stop-the-world 현상을 최소화하기 위한 GC 방법
+- Minor GC가 일어날때마다 Old영역을 조금씩 GC함
+	- Full GC가 발생하는 횟수, 시간이 줄어듬 ( 이론상 )
+- 느려지는 경우가 생길 수 있으므로 반드시 테스트 후 사용하기
+
 ---
 ## 참고문헌
 * [NAVER D2 - Java Garbage Collection](http://d2.naver.com/helloworld/1329)
@@ -134,3 +170,4 @@
 * [자바 웹 프로그래밍 - JVM memory와 GC 종류](https://www.slipp.net/wiki/pages/viewpage.action?pageId=26641949)
 * [Java Reference와 GC](http://d2.naver.com/helloworld/329631)
 * [JVM GC와 메모리 튜닝](http://levin01.tistory.com/441)
+* [JVM의 Garbage Collection](https://www.holaxprogramming.com/2013/07/20/java-jvm-gc/)
