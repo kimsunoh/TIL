@@ -66,5 +66,5 @@
 ---
 ## 참고링크
 * [NAVER D2 - Garbage Collection 모니터링 방법](http://d2.naver.com/helloworld/6043)
-* [ORACLE docs - jstat-Java Virtual Machine Statistics Monitoring Tool]
+* [Oracle docs - jstat-Java Virtual Machine Statistics Monitoring Tool](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html)
 * [BLOG - [WAS] GC 모니터링 및 튜닝하기](https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html)
