@@ -14,7 +14,7 @@
 ## 논리 회로의 가중치, 임계값 설정
 ### AND 
 - 두개다 true일 경우 뉴런이 활성화됨
-``` python
+```python
 def AND(x1, x2):
 	w1, w2, theta = 0.5, 0.5, 0.7
 	result = x1*w1 + x2*w2
@@ -41,7 +41,7 @@ print( AND(0,1) )
 - 퍼센트론은 '입력 신호에 가중치를 곱한값과 편향의 합' > 0이면 1, 아니면 0을 출력한다
 	- b + x1w1 + w2x2 > 0 ? 1 : 0
 		- b == -theta
-``` python
+```python
 import numpy as np 
 
 x = np.array([0, 1])
@@ -59,7 +59,7 @@ print( np.sum( w*x ) + b
 ```
 
 #### bias AND, NAND, OR 게이트
-``` python
+```python
 def AND(x1, x2):
 	x = np.array([x1, x2])
 	w = np.array([0.5, 0.5])
@@ -112,7 +112,7 @@ def OR(x1, x2): # AND와 weight, bias만 다름
 	- 직선하나로 표현할 수 없음
 
 ### 다층 퍼셉트론 XOR
-``` python
+```python
 def XOR(x1, x2):
 	s1 = NAND(x1,x2)
 	s2 = OR(x1,x2)
@@ -158,7 +158,7 @@ def XOR(x1, x2):
 - 신경망에서는 시그모이드 함수를 사용하며, 계단함수와는 다른 연속성을 갖게됨
 	- 입력값에 비례해 출력값을 조절함
 - 구현
-``` python
+```python
 def sigmoid(x):
 	return 1 / 1 + np.exp(-x)
 

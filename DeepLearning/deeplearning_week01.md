@@ -37,7 +37,7 @@
 	- pyplot 모듈
 
 ## Example
-``` python
+```python
 import numpy as np 
 
 x = np.array([1, 2.0, 3, 10])
@@ -81,7 +81,7 @@ print( vector.dtype )
 ## Broadcast (브로드캐스트)
 - 넘파이 배열과 스칼라값의 연산을 넘파이 배열의 원소 각각과 스칼라값의 연산으로 바꿔 수행하는 것
 	- 형상이 다른 배열끼리 연산하는 것
-``` python
+```python
 metrix = np.array([[1,2],[9,-1]])
  
 print( metrix * 10 )
