@@ -1,173 +1,173 @@
-# Garbage Collection (GC, °¡ºñÁö ÄÃ·º¼Ç)
-- ´õÀÌ»ó ÇÊ¿ä¾ø´Â (¾²·¹±â)°´Ã¼¸¦ Ã£¾Æ Áö¿ì´Â ÀÛ¾÷À» ÇÔ
-- weak generational hypothesis¿¡ ÀÇÇÑ´Ù
-	- ´ëºÎºÐÀÇ °´Ã¼´Â ±Ý¹æ Á¢±Ù ºÒ°¡´É »óÅÂ(unreachable)°¡ µÈ´Ù
-	- ¿À·¡µÈ °´Ã¼¿¡¼­ ÀþÀº °´Ã¼·ÎÀÇ Âü°í´Â ¾ÆÁÖ Àû´Ù
-	- °¡¼³ÀÇ ÀåÁ¡À» ÃÖ´ëÇÑ »ì¸®±â À§ÇØ HotSpot VM¿¡¼­´Â Å©°Ô 2°³·Î ¹°¸®Àû °ø°£À¸·Î ³ª´©¾îÁü
+# Garbage Collection (GC, ê°€ë¹„ì§€ ì»¬ë ‰ì…˜)
+- ë”ì´ìƒ í•„ìš”ì—†ëŠ” (ì“°ë ˆê¸°)ê°ì²´ë¥¼ ì°¾ì•„ ì§€ìš°ëŠ” ìž‘ì—…ì„ í•¨
+- weak generational hypothesisì— ì˜í•œë‹¤
+	- ëŒ€ë¶€ë¶„ì˜ ê°ì²´ëŠ” ê¸ˆë°© ì ‘ê·¼ ë¶ˆê°€ëŠ¥ ìƒíƒœ(unreachable)ê°€ ëœë‹¤
+	- ì˜¤ëž˜ëœ ê°ì²´ì—ì„œ ì Šì€ ê°ì²´ë¡œì˜ ì°¸ê³ ëŠ” ì•„ì£¼ ì ë‹¤
+	- ê°€ì„¤ì˜ ìž¥ì ì„ ìµœëŒ€í•œ ì‚´ë¦¬ê¸° ìœ„í•´ HotSpot VMì—ì„œëŠ” í¬ê²Œ 2ê°œë¡œ ë¬¼ë¦¬ì  ê³µê°„ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì§
 
 ## stop-the-world
-- GC¸¦ ½ÇÇàÇÏ±â À§ÇØ JVMÀÌ ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ½ÇÇàÀ» ¸ØÃß´Â °Í
-- ¹ß»ýÇÏ¸é GC¸¦ ½ÇÇàÇÏ´Â ¾²·¹µå¸¦ Á¦¿ÜÇÑ ³ª¸ÓÁö ¾²·¹µå´Â ¸ðµÎ ÀÛ¾÷À» ¸ØÃã
-- GC ÀÛ¾÷À» ¿Ï·áÇÑ ÀÌÈÄ¿¡¾ß Áß´ÜÇß´ø ÀÛ¾÷À» ´Ù½Ã ½ÃÀÛÇÔ
-- ¾î¶² GC¾Ë°í¸®ÁòÀ» »ç¿ëÇÏ´õ¶óµµ ¹ß»ýÇÔ
-- ´ë°³ÀÇ °æ¿ì GCÆ©´×ÀÌ¶õ ÀÌ stop-the-world ½Ã°£À» ÁÙÀÌ´Â °Í
-	- Java´Â ÇÁ·Î±×·¥ ÄÚµå¿¡¼­ ¸Þ¸ð¸®¸¦ ¸í½ÃÀûÀ¸·Î ÁöÁ¤ÇÏ¿© ÇØÁ¦ÇÏÁö ¾ÊÀ½
+- GCë¥¼ ì‹¤í–‰í•˜ê¸° ìœ„í•´ JVMì´ ì• í”Œë¦¬ì¼€ì´ì…˜ ì‹¤í–‰ì„ ë©ˆì¶”ëŠ” ê²ƒ
+- ë°œìƒí•˜ë©´ GCë¥¼ ì‹¤í–‰í•˜ëŠ” ì“°ë ˆë“œë¥¼ ì œì™¸í•œ ë‚˜ë¨¸ì§€ ì“°ë ˆë“œëŠ” ëª¨ë‘ ìž‘ì—…ì„ ë©ˆì¶¤
+- GC ìž‘ì—…ì„ ì™„ë£Œí•œ ì´í›„ì—ì•¼ ì¤‘ë‹¨í–ˆë˜ ìž‘ì—…ì„ ë‹¤ì‹œ ì‹œìž‘í•¨
+- ì–´ë–¤ GCì•Œê³ ë¦¬ì¦˜ì„ ì‚¬ìš©í•˜ë”ë¼ë„ ë°œìƒí•¨
+- ëŒ€ê°œì˜ ê²½ìš° GCíŠœë‹ì´ëž€ ì´ stop-the-world ì‹œê°„ì„ ì¤„ì´ëŠ” ê²ƒ
+	- JavaëŠ” í”„ë¡œê·¸ëž¨ ì½”ë“œì—ì„œ ë©”ëª¨ë¦¬ë¥¼ ëª…ì‹œì ìœ¼ë¡œ ì§€ì •í•˜ì—¬ í•´ì œí•˜ì§€ ì•ŠìŒ
 
-## HotSpot VMÀÇ 2°³ÀÇ ¹°¸® °ø°£
+## HotSpot VMì˜ 2ê°œì˜ ë¬¼ë¦¬ ê³µê°„
 - Young Generation
-	- »õ·Ó°Ô »ý¼ºÇÑ °´Ã¼ÀÇ ´ëºÎºÐÀÌ À§Ä¡ÇÔ
-	- ÀÌ¿µ¿ª¿¡¼­ °´Ã¼°¡ »ç¶óÁú ¶§ Minor GC°¡ ¹ß»ýÇÑ´Ù°í ¸»ÇÔ
+	- ìƒˆë¡­ê²Œ ìƒì„±í•œ ê°ì²´ì˜ ëŒ€ë¶€ë¶„ì´ ìœ„ì¹˜í•¨
+	- ì´ì˜ì—­ì—ì„œ ê°ì²´ê°€ ì‚¬ë¼ì§ˆ ë•Œ Minor GCê°€ ë°œìƒí•œë‹¤ê³  ë§í•¨
 - Old Generation
-	- Á¢±Ù ºÒ°¡´É »óÅÂ·Î µÇÁö ¾Ê¾Æ Young ¿µ¿ª¿¡¼­ »ì¾Æ³²Àº °´Ã¼°¡ ¿©±â·Î º¹»çµÊ
-	- ´ëºÎºÐ Young ¿µ¿ªº¸´Ù Å©°Ô ÇÒ´çµÊ
-	- Young¿µ¿ªº¸´Ù GC´Â Àû°Ô ¹ß»ýÇÔ
-	- ÀÌ ¿µ¿ª¿¡¼­ °´Ã¼°¡ »ç¶óÁú ¶§ Major GC(È¤Àº Full GC)°¡ ¹ß»ý
+	- ì ‘ê·¼ ë¶ˆê°€ëŠ¥ ìƒíƒœë¡œ ë˜ì§€ ì•Šì•„ Young ì˜ì—­ì—ì„œ ì‚´ì•„ë‚¨ì€ ê°ì²´ê°€ ì—¬ê¸°ë¡œ ë³µì‚¬ë¨
+	- ëŒ€ë¶€ë¶„ Young ì˜ì—­ë³´ë‹¤ í¬ê²Œ í• ë‹¹ë¨
+	- Youngì˜ì—­ë³´ë‹¤ GCëŠ” ì ê²Œ ë°œìƒí•¨
+	- ì´ ì˜ì—­ì—ì„œ ê°ì²´ê°€ ì‚¬ë¼ì§ˆ ë•Œ Major GC(í˜¹ì€ Full GC)ê°€ ë°œìƒ
 
-### ¿µ¿ªº° ÀÌµ¿ Èå¸§
+### ì˜ì—­ë³„ ì´ë™ íë¦„
 - -( Allocation )-> [Young Generation] -(Promotion)-> [Old Generation],[Permanent Generation]
-* Permanent Generation ¿µ¿ª ( Perm ¿µ¿ª )
-	- ~Method Area ¶ó°íµµ ÇÔ(?)~
-	- JVMÅ¬·¡½º¿Í ¸Þ¼­µå °´Ã¼¸¦ À§ÇÑ ¿µ¿ª
-	- JVMÀÇ ¸ðµç ½º·¹µåµéÀÌ °øÀ¯ÇÏ´Â µ¥ÀÌÅÍ ¿µ¿ª
-	- Runtime constant pool°ú °¢ Å¬·¡½º¿¡ ´ëÇÑ »ý¼ºÀÚ¿Í ¸Þ¼­µåµé¿¡ ´ëÇÑ ÄÚµå¸¦ ÀúÀå
+* Permanent Generation ì˜ì—­ ( Perm ì˜ì—­ )
+	- ~Method Area ë¼ê³ ë„ í•¨(?)~
+	- JVMí´ëž˜ìŠ¤ì™€ ë©”ì„œë“œ ê°ì²´ë¥¼ ìœ„í•œ ì˜ì—­
+	- JVMì˜ ëª¨ë“  ìŠ¤ë ˆë“œë“¤ì´ ê³µìœ í•˜ëŠ” ë°ì´í„° ì˜ì—­
+	- Runtime constant poolê³¼ ê° í´ëž˜ìŠ¤ì— ëŒ€í•œ ìƒì„±ìžì™€ ë©”ì„œë“œë“¤ì— ëŒ€í•œ ì½”ë“œë¥¼ ì €ìž¥
 		* Runtime constant pool 
-			- °¢ Å¬·¡½º¿¡ ´ëÇÑ ÀÎ½ºÅÏ½º º¯¼ö¿Í ÀÎ½ºÅÏ½ºÀÇ ¸â¹ö º¯¼ö, static º¯¼ö¿Í static ÀÎ½ºÅÏ½ºÀÇ ¸â¹öµéÀÌ ÀúÀåµÇ´Â ¿µ¿ª
-			- Method area¿¡ ÀÇÇØ ÇÒ´çµÇ°í °ü¸®µÊ, JVMÀÇ ¸ðµç ½º·¹µåµéÀÌ °øÀ¯ÇÏ°Ô µÊ
-	- ¿©±â¼­ GC°¡ ¹ß»ýÇÏ¸é Major GCÀÇ È½¼ö¿¡ Æ÷ÇÔµÊ
+			- ê° í´ëž˜ìŠ¤ì— ëŒ€í•œ ì¸ìŠ¤í„´ìŠ¤ ë³€ìˆ˜ì™€ ì¸ìŠ¤í„´ìŠ¤ì˜ ë©¤ë²„ ë³€ìˆ˜, static ë³€ìˆ˜ì™€ static ì¸ìŠ¤í„´ìŠ¤ì˜ ë©¤ë²„ë“¤ì´ ì €ìž¥ë˜ëŠ” ì˜ì—­
+			- Method areaì— ì˜í•´ í• ë‹¹ë˜ê³  ê´€ë¦¬ë¨, JVMì˜ ëª¨ë“  ìŠ¤ë ˆë“œë“¤ì´ ê³µìœ í•˜ê²Œ ë¨
+	- ì—¬ê¸°ì„œ GCê°€ ë°œìƒí•˜ë©´ Major GCì˜ íšŸìˆ˜ì— í¬í•¨ë¨
 
-#### Ä«µåÅ×ÀÌºí
-- Old¿µ¿ªÀÇ 512¹ÙÀÌÆ®ÀÇ µ¢¾î¸®(chunk)·Î µÇ¾îÀÖ´Â Å×ÀÌºí
-	- Old¿µ¿ª °´Ã¼°¡ Young ¿µ¿ª °´Ã¼¸¦ ÂüÁ¶ÇÒ ¶§¸¶´Ù Á¤º¸°¡ Ç¥½ÃµÊ
-- Young ¿µ¿ªÀÇ GC¸¦ ½ÇÇàÇÒ ¶§´Â Old ¿µ¿ª¿¡ ÀÖ´Â Ä«µåÅ×ÀÌºí¸¸ µÚÁ®¼­ GC ´ë»óÀÎÁö ½Äº°ÇÔ
-- write barrier¸¦ »ç¿ëÇÏ¿© °ü¸®ÇÔ
-	- Minor GC¸¦ ºü¸£°Ô ÇÒ ¼ö ÀÖµµ·Ï ÇÏ´Â ÀåÄ¡
-	- ¾à°£ÀÇ ¿À¹öÇìµå´Â ¹ß»ýÇÏÁö¸¸ Àü¹ÝÀûÀÎ GC ½Ã°£Àº ÁÙ¾îµé°Ô µÊ
+#### ì¹´ë“œí…Œì´ë¸”
+- Oldì˜ì—­ì˜ 512ë°”ì´íŠ¸ì˜ ë©ì–´ë¦¬(chunk)ë¡œ ë˜ì–´ìžˆëŠ” í…Œì´ë¸”
+	- Oldì˜ì—­ ê°ì²´ê°€ Young ì˜ì—­ ê°ì²´ë¥¼ ì°¸ì¡°í•  ë•Œë§ˆë‹¤ ì •ë³´ê°€ í‘œì‹œë¨
+- Young ì˜ì—­ì˜ GCë¥¼ ì‹¤í–‰í•  ë•ŒëŠ” Old ì˜ì—­ì— ìžˆëŠ” ì¹´ë“œí…Œì´ë¸”ë§Œ ë’¤ì ¸ì„œ GC ëŒ€ìƒì¸ì§€ ì‹ë³„í•¨
+- write barrierë¥¼ ì‚¬ìš©í•˜ì—¬ ê´€ë¦¬í•¨
+	- Minor GCë¥¼ ë¹ ë¥´ê²Œ í•  ìˆ˜ ìžˆë„ë¡ í•˜ëŠ” ìž¥ì¹˜
+	- ì•½ê°„ì˜ ì˜¤ë²„í—¤ë“œëŠ” ë°œìƒí•˜ì§€ë§Œ ì „ë°˜ì ì¸ GC ì‹œê°„ì€ ì¤„ì–´ë“¤ê²Œ ë¨
 
-## Young ¿µ¿ª
-- 3°³ÀÇ ¿µ¿ªÀ¸·Î ³ª´¸
-	- Eden ¿µ¿ª
-	- Survivor ¿µ¿ª(2°³)
-- GC Ã³¸® ÀýÂ÷
-	1. »õ·Î »ý¼ºÇÑ ´ëºÎºÐÀÇ °´Ã¼´Â Eden ¿µ¿ª¿¡ À§Ä¡ÇÔ
-	2. Eden ¿µ¿ª¿¡¼­ GC°¡ ÇÑ ¹ø ¹ß»ýÇÑ ÈÄ »ì¾Æ³²Àº °´Ã¼´Â Survivor ¿µ¿ª Áß ÇÏ³ª·Î ÀÌµ¿ µÊ
-	3. Eden ¿µ¿ª¿¡¼­ GC°¡ ¹ß»ýÇÏ¸é ÀÌ¹Ì »ì¾Æ³²Àº °´Ã¼°¡ Á¸ÀçÇÏ´Â Survivor ¿µ¿ªÀ¸·Î ÀÌµ¿ µÊ
-		1) °¡µæÂù Survivor ¿µ¿ªÀº ¾Æ¹« µ¥ÀÌÅÍµµ ¾ø´Â »óÅÂ°¡ µÊ
-		* Áï, Survivor ¿µ¿ª Áß ÇÏ³ª´Â ¹Ýµå½Ã ºñ¾îÀÖ´Â »óÅÂ¿©¾ßÇÔ
-		* µÎ Survivor ¿µ¿ª¿¡ ¸ðµÎ µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏ°Å³ª, µÎ ¿µ¿ª ¸ðµÎ »ç¿ë·®ÀÌ 0ÀÌ¸é ½Ã½ºÅÛÀÌ ºñÁ¤»óÀûÀÎ °Í
-	4. 1-3°úÁ¤À» ¹Ýº¹ÇÏ´Ù°¡ °è¼ÓÇØ¼­ »ì¾Æ³²¾Æ ÀÖ´Â °´Ã¼´Â Old¿µ¿ªÀ¸·Î ÀÌµ¿ÇÏ°Ô µÊ
+## Young ì˜ì—­
+- 3ê°œì˜ ì˜ì—­ìœ¼ë¡œ ë‚˜ë‰¨
+	- Eden ì˜ì—­
+	- Survivor ì˜ì—­(2ê°œ)
+- GC ì²˜ë¦¬ ì ˆì°¨
+	1. ìƒˆë¡œ ìƒì„±í•œ ëŒ€ë¶€ë¶„ì˜ ê°ì²´ëŠ” Eden ì˜ì—­ì— ìœ„ì¹˜í•¨
+	2. Eden ì˜ì—­ì—ì„œ GCê°€ í•œ ë²ˆ ë°œìƒí•œ í›„ ì‚´ì•„ë‚¨ì€ ê°ì²´ëŠ” Survivor ì˜ì—­ ì¤‘ í•˜ë‚˜ë¡œ ì´ë™ ë¨
+	3. Eden ì˜ì—­ì—ì„œ GCê°€ ë°œìƒí•˜ë©´ ì´ë¯¸ ì‚´ì•„ë‚¨ì€ ê°ì²´ê°€ ì¡´ìž¬í•˜ëŠ” Survivor ì˜ì—­ìœ¼ë¡œ ì´ë™ ë¨
+		1) ê°€ë“ì°¬ Survivor ì˜ì—­ì€ ì•„ë¬´ ë°ì´í„°ë„ ì—†ëŠ” ìƒíƒœê°€ ë¨
+		* ì¦‰, Survivor ì˜ì—­ ì¤‘ í•˜ë‚˜ëŠ” ë°˜ë“œì‹œ ë¹„ì–´ìžˆëŠ” ìƒíƒœì—¬ì•¼í•¨
+		* ë‘ Survivor ì˜ì—­ì— ëª¨ë‘ ë°ì´í„°ê°€ ì¡´ìž¬í•˜ê±°ë‚˜, ë‘ ì˜ì—­ ëª¨ë‘ ì‚¬ìš©ëŸ‰ì´ 0ì´ë©´ ì‹œìŠ¤í…œì´ ë¹„ì •ìƒì ì¸ ê²ƒ
+	4. 1-3ê³¼ì •ì„ ë°˜ë³µí•˜ë‹¤ê°€ ê³„ì†í•´ì„œ ì‚´ì•„ë‚¨ì•„ ìžˆëŠ” ê°ì²´ëŠ” Oldì˜ì—­ìœ¼ë¡œ ì´ë™í•˜ê²Œ ë¨
 
 ### MinorGC
-- GC ¼öÇà ¹æ¹ý
-	1. MinorGC°¡ ¹ß»ýÇÏ¸é Eden°ú S1¿¡ Alive µÇ¾îÀÖ´Â °´Ã¼¸¦ S2·Î º¹»çÇÔ
-		- S1¿¡ Alive µÇ¾îÀÖÁö ¾ÊÀº °´Ã¼´Â ÀÚ¿¬È÷ S1¿¡ ³²¾ÆÀÖ°ÔµÊ
-	2. S1°ú Eden ¿µ¿ªÀ» ClearÇÔ
-	3. Minor GC¸¦ ¼öÇàÇÏ´Ù°¡ Survivor ¿µ¿ª¿¡¼­ ¿À·¡µÈ °´Ã¼´Â Old ¿µ¿ªÀ¸·Î ÀÌµ¿
+- GC ìˆ˜í–‰ ë°©ë²•
+	1. MinorGCê°€ ë°œìƒí•˜ë©´ Edenê³¼ S0ì— Alive ë˜ì–´ìžˆëŠ” ê°ì²´ë¥¼ S1ë¡œ ë³µì‚¬í•¨
+		- S0ì— Alive ë˜ì–´ìžˆì§€ ì•Šì€ ê°ì²´ëŠ” ìžì—°ížˆ S1ì— ë‚¨ì•„ìžˆê²Œë¨
+	2. S0ê³¼ Eden ì˜ì—­ì„ Clearí•¨
+	3. Minor GCë¥¼ ìˆ˜í–‰í•˜ë‹¤ê°€ Survivor ì˜ì—­ì—ì„œ ì˜¤ëž˜ëœ ê°ì²´ëŠ” Old ì˜ì—­ìœ¼ë¡œ ì´ë™
 	
-## Old ¿µ¿ª
-- µ¥ÀÌÅÍ°¡ °¡µæ Â÷¸é GC¸¦ ½ÇÇàÇÔ
+## Old ì˜ì—­
+- ë°ì´í„°ê°€ ê°€ë“ ì°¨ë©´ GCë¥¼ ì‹¤í–‰í•¨
 
 ### Full GC
-: Mark & Compact ¾Ë°í¸®Áò ÀÌ¿ë
-- ¼öÇà¹æ¹ý
-	1. ÀüÃ¼ °´Ã¼µéÀÇ reference¸¦ Âß µû¶ó°¡¸ç reference°¡ ¿¬°áµÇÁö ¾Ê´Â °´Ã¼¸¦ Mark ÇÔ
-	2. 1ÀÛ¾÷ÀÌ ³¡³ª¸é MarkµÈ °´Ã¼¸¦ »èÁ¦ÇÔ
-		: ½ÇÁ¦·Î´Â Compact¶ó°í ÇØ¼­, MarkµÈ °´Ã¼·Î »ý±â´Â ºÎºÐÀ» »ç¿ëÇÏ´Â °´Ã¼·Î ¸Þ²Ù¾î ¹ö¸°´Ù
-- Full GC´Â ¸Å¿ì ¼Óµµ°¡ ´À¸²
-- Full GC°¡ ÀÏ¾î³ª´Â µµÁß¿¡ ¼ø°£ÀûÀ¸·Î stop-the-world°¡ ¹ß»ýÇÑ´Ù
+: Mark & Compact ì•Œê³ ë¦¬ì¦˜ ì´ìš©
+- ìˆ˜í–‰ë°©ë²•
+	1. ì „ì²´ ê°ì²´ë“¤ì˜ referenceë¥¼ ì­‰ ë”°ë¼ê°€ë©° referenceê°€ ì—°ê²°ë˜ì§€ ì•ŠëŠ” ê°ì²´ë¥¼ Mark í•¨
+	2. 1ìž‘ì—…ì´ ëë‚˜ë©´ Markëœ ê°ì²´ë¥¼ ì‚­ì œí•¨
+		: ì‹¤ì œë¡œëŠ” Compactë¼ê³  í•´ì„œ, Markëœ ê°ì²´ë¡œ ìƒê¸°ëŠ” ë¶€ë¶„ì„ ì‚¬ìš©í•˜ëŠ” ê°ì²´ë¡œ ë©”ê¾¸ì–´ ë²„ë¦°ë‹¤
+- Full GCëŠ” ë§¤ìš° ì†ë„ê°€ ëŠë¦¼
+- Full GCê°€ ì¼ì–´ë‚˜ëŠ” ë„ì¤‘ì— ìˆœê°„ì ìœ¼ë¡œ stop-the-worldê°€ ë°œìƒí•œë‹¤
 
-## JVMÀÇ GCÀÇ ¹æ½Ä
-### Serial GC (-XX:+UseSerialGC, ÀÌÇÏ S-GC)
-- µ¥½ºÅ©ÅéÀÇ CPU ÄÚ¾î°¡ ÇÏ³ª¸¸ ÀÖÀ» ¶§ »ç¿ëÇÏ±â À§ÇØ¼­ ¸¸µç ¹æ½Ä, »ç¿ëÇÏ¸é ¾ÈµÊ
-- Old ¿µ¿ªÀÇ GC´Â mark-sweep-compact¶ó´Â ¾Ë°í¸®ÁòÀ» »ç¿ëÇÔ
+## JVMì˜ GCì˜ ë°©ì‹
+### Serial GC (-XX:+UseSerialGC, ì´í•˜ S-GC)
+- ë°ìŠ¤í¬í†±ì˜ CPU ì½”ì–´ê°€ í•˜ë‚˜ë§Œ ìžˆì„ ë•Œ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ ë§Œë“  ë°©ì‹, ì‚¬ìš©í•˜ë©´ ì•ˆë¨
+- Old ì˜ì—­ì˜ GCëŠ” mark-sweep-compactë¼ëŠ” ì•Œê³ ë¦¬ì¦˜ì„ ì‚¬ìš©í•¨
 	- mark-sweep-compact
-		1. Old ¿µ¿ª¿¡ »ì¾ÆÀÖ´Â °´Ã¼¸¦ MarkÇÔ
-		2. HeapÀÇ ¾Õ ºÎºÐºÎÅÍ È®ÀÎÇÏ¿© »ì¾Æ ÀÖ´Â °Í¸¸ ³²±è(Sweep)
-		3. °¢ °´Ã¼µéÀÌ ¿¬¼ÓµÇ°Ô ½×ÀÌµµ·Ï ÈüÀÇ °¡Àå ¾Õ ºÎºÐºÎÅÍ Ã¤¿ö¼­ °´Ã¼°¡ Á¸ÀçÇÏ´Â ºÎºÐ°ú °´Ã¼°¡ ¾ø´Â ºÎºÐÀ¸·Î ³ª´®(Compaction)
-- CPU ÄÚ¾î °³¼ö°¡ Àû°í ¸Þ¸ð¸®°¡ ÀûÀ» ¶§ ÀûÇÕÇÑ ¹æ½Ä
+		1. Old ì˜ì—­ì— ì‚´ì•„ìžˆëŠ” ê°ì²´ë¥¼ Markí•¨
+		2. Heapì˜ ì•ž ë¶€ë¶„ë¶€í„° í™•ì¸í•˜ì—¬ ì‚´ì•„ ìžˆëŠ” ê²ƒë§Œ ë‚¨ê¹€(Sweep)
+		3. ê° ê°ì²´ë“¤ì´ ì—°ì†ë˜ê²Œ ìŒ“ì´ë„ë¡ íž™ì˜ ê°€ìž¥ ì•ž ë¶€ë¶„ë¶€í„° ì±„ì›Œì„œ ê°ì²´ê°€ ì¡´ìž¬í•˜ëŠ” ë¶€ë¶„ê³¼ ê°ì²´ê°€ ì—†ëŠ” ë¶€ë¶„ìœ¼ë¡œ ë‚˜ëˆ”(Compaction)
+- CPU ì½”ì–´ ê°œìˆ˜ê°€ ì ê³  ë©”ëª¨ë¦¬ê°€ ì ì„ ë•Œ ì í•©í•œ ë°©ì‹
 
-### Parallel GC(-XX:+UseParallelGC, ÀÌÇÏ P-GC)
-: Throughput GC ¶ó°íµµ ÇÔ
-- S-GC¿Í ±âº»ÀûÀÎ ¾Ë°í¸®ÁòÀº °°À½, ±×·¯³ª S-GC¿Í´Â ´Ù¸£°Ô Parallel GC´Â Ã³¸®ÇÏ´Â ¾²·¹µå°¡ ¿©·¯°³
-	- S-GCº¸´Ù ºü¸£°Ô °´Ã¼¸¦ Ã³¸®ÇÒ ¼ö ÀÖÀ½
-- ¸Þ¸ð¸®°¡ ÃæºÐÇÏ°í ÄÚ¾îÀÇ °³¼ö°¡ ¸¹À» ¶§ À¯¸®ÇÔ
+### Parallel GC(-XX:+UseParallelGC, ì´í•˜ P-GC)
+: Throughput GC ë¼ê³ ë„ í•¨
+- S-GCì™€ ê¸°ë³¸ì ì¸ ì•Œê³ ë¦¬ì¦˜ì€ ê°™ìŒ, ê·¸ëŸ¬ë‚˜ S-GCì™€ëŠ” ë‹¤ë¥´ê²Œ Parallel GCëŠ” ì²˜ë¦¬í•˜ëŠ” ì“°ë ˆë“œê°€ ì—¬ëŸ¬ê°œ
+	- S-GCë³´ë‹¤ ë¹ ë¥´ê²Œ ê°ì²´ë¥¼ ì²˜ë¦¬í•  ìˆ˜ ìžˆìŒ
+- ë©”ëª¨ë¦¬ê°€ ì¶©ë¶„í•˜ê³  ì½”ì–´ì˜ ê°œìˆ˜ê°€ ë§Žì„ ë•Œ ìœ ë¦¬í•¨
 	
 ### Parallel Old GC(-XX:+UseParallelOldGC)
-- P-GC¿Í ºñ±³ÇÏ¿© Old¿µ¿ªÀÇ GC ¾Ë°í¸®Áò¸¸ ´Ù¸§
-- Mark-summaty-Compaction ´Ü°è¸¦ °ÅÄ§
-	1. Summary´Ü°è
-	: ¾Õ¼­ GC¸¦ ¼öÇàÇÑ ¿µ¿ª¿¡ ´ëÇØ¼­ º°µµ·Î »ì¾ÆÀÖ´Â °´Ã¼¸¦ ½Äº°ÇÑ´Ù´Â Á¡¿¡¼­ Mark-Sweep-Compaction ¾Ë°í¸®ÁòÀÇ Sweep ´Ü°è¿Í ´Ù¸§
+- P-GCì™€ ë¹„êµí•˜ì—¬ Oldì˜ì—­ì˜ GC ì•Œê³ ë¦¬ì¦˜ë§Œ ë‹¤ë¦„
+- Mark-summaty-Compaction ë‹¨ê³„ë¥¼ ê±°ì¹¨
+	1. Summaryë‹¨ê³„
+	: ì•žì„œ GCë¥¼ ìˆ˜í–‰í•œ ì˜ì—­ì— ëŒ€í•´ì„œ ë³„ë„ë¡œ ì‚´ì•„ìžˆëŠ” ê°ì²´ë¥¼ ì‹ë³„í•œë‹¤ëŠ” ì ì—ì„œ Mark-Sweep-Compaction ì•Œê³ ë¦¬ì¦˜ì˜ Sweep ë‹¨ê³„ì™€ ë‹¤ë¦„
 	
 ### CMS GC(-XX:+UseComcMarkSweepGC)
-: Low Latency GC¶ó°íµµ ÇÔ
-- ½ÇÇà´Ü°è
-	1. Initial Mark ´Ü°è
-		- Å¬·¡½º ·Î´õ¿¡¼­ °¡Àå °¡±î¿î °´Ã¼ Áß »ì¾Æ ÀÖ´Â °´Ã¼¸¸ Ã£´Â °ÍÀ¸·Î ³¡³¿
-		- stop-the-world ½Ã°£ÀÌ ¸Å¿ì ÂªÀ½
-	2. Concurrent Mark ´Ü°è
-		- ¹æ±Ý »ì¾ÆÀÖ´Ù°í È®ÀÎÇÑ °´Ã¼¿¡¼­ ÂüÁ¶ÇÏ°í ÀÖ´Â °´Ã¼µéÀ» µû¶ó°¡¸é¼­ È®ÀÎÇÔ
-		- ÀÌ ÀÛ¾÷À» ´Ù¸¥ ½º·¹µå°¡ ½ÇÇà ÁßÀÎ »óÅÂ¿¡¼­ µ¿½Ã¿¡ ÁøÇàµÊ
-	3. Remark´Ü°è
-		- Concurrent Mark ´Ü°è¿¡¼­ »õ·Î Ãß°¡µÇ°Å³ª ÂüÁ¶°¡ ²÷±ä °´Ã¼¸¦ È®ÀÓÇÔ
-	4. Concurrent Sweep ´Ü°è
-		- ¾²·¹±â¸¦ Á¤¸®ÇÏ´Â ÀÛ¾÷À» ½ÇÇàÇÔ
-		- ´Ù¸¥ ½º·¹µå°¡ ½ÇÇàµÇ°í ÀÖ´Â »óÈ²¿¡¼­ ÁøÇàÇÔ
-- stop-the-world ½Ã°£ÀÌ ¸Å¿ì ÂªÀ½
-- ¸ðµç ¾ÖÇÃ¸®ÄÉÀÌ¼ÇÀÇ ÀÀ´ä ¼Óµµ°¡ ¸Å¿ì Áß¿äÇÒ ¶§ CMS GC¸¦ »ç¿ë
-- ´ÜÁ¡
-	- ´Ù¸¥ GC ¹æ½Äº¸´Ù ¸Þ¸ð¸®¿Í CPU¸¦ ´õ ¸¹ÀÌ »ç¿ëÇÔ
-	- Compaction ´Ü°è°¡ ±âº»ÀûÀ¸·Î Á¦°øµÇÁö ¾ÊÀ½
-		- Á¶°¢³­ ¸Þ¸ð¸®°¡ ¸¹¾Æ Compaction ÀÛ¾÷À» ½ÇÇàÇÏ¸é, ´Ù¸¥ GC ¹æ½ÄÀÇ stop-the-world ½Ã°£ÀÌ ´õ ±æ±â ¶§¹®¿¡ Compaction ÀÛ¾÷ÀÌ ¾ó¸¶³ª ÀÚÁÖ, ¿À·§µ¿¾È ¼öÇàµÇ´ÂÁö È®ÀÎ ÇÊ¿ä
+: Low Latency GCë¼ê³ ë„ í•¨
+- ì‹¤í–‰ë‹¨ê³„
+	1. Initial Mark ë‹¨ê³„
+		- í´ëž˜ìŠ¤ ë¡œë”ì—ì„œ ê°€ìž¥ ê°€ê¹Œìš´ ê°ì²´ ì¤‘ ì‚´ì•„ ìžˆëŠ” ê°ì²´ë§Œ ì°¾ëŠ” ê²ƒìœ¼ë¡œ ëëƒ„
+		- stop-the-world ì‹œê°„ì´ ë§¤ìš° ì§§ìŒ
+	2. Concurrent Mark ë‹¨ê³„
+		- ë°©ê¸ˆ ì‚´ì•„ìžˆë‹¤ê³  í™•ì¸í•œ ê°ì²´ì—ì„œ ì°¸ì¡°í•˜ê³  ìžˆëŠ” ê°ì²´ë“¤ì„ ë”°ë¼ê°€ë©´ì„œ í™•ì¸í•¨
+		- ì´ ìž‘ì—…ì„ ë‹¤ë¥¸ ìŠ¤ë ˆë“œê°€ ì‹¤í–‰ ì¤‘ì¸ ìƒíƒœì—ì„œ ë™ì‹œì— ì§„í–‰ë¨
+	3. Remarkë‹¨ê³„
+		- Concurrent Mark ë‹¨ê³„ì—ì„œ ìƒˆë¡œ ì¶”ê°€ë˜ê±°ë‚˜ ì°¸ì¡°ê°€ ëŠê¸´ ê°ì²´ë¥¼ í™•ìž„í•¨
+	4. Concurrent Sweep ë‹¨ê³„
+		- ì“°ë ˆê¸°ë¥¼ ì •ë¦¬í•˜ëŠ” ìž‘ì—…ì„ ì‹¤í–‰í•¨
+		- ë‹¤ë¥¸ ìŠ¤ë ˆë“œê°€ ì‹¤í–‰ë˜ê³  ìžˆëŠ” ìƒí™©ì—ì„œ ì§„í–‰í•¨
+- stop-the-world ì‹œê°„ì´ ë§¤ìš° ì§§ìŒ
+- ëª¨ë“  ì• í”Œë¦¬ì¼€ì´ì…˜ì˜ ì‘ë‹µ ì†ë„ê°€ ë§¤ìš° ì¤‘ìš”í•  ë•Œ CMS GCë¥¼ ì‚¬ìš©
+- ë‹¨ì 
+	- ë‹¤ë¥¸ GC ë°©ì‹ë³´ë‹¤ ë©”ëª¨ë¦¬ì™€ CPUë¥¼ ë” ë§Žì´ ì‚¬ìš©í•¨
+	- Compaction ë‹¨ê³„ê°€ ê¸°ë³¸ì ìœ¼ë¡œ ì œê³µë˜ì§€ ì•ŠìŒ
+		- ì¡°ê°ë‚œ ë©”ëª¨ë¦¬ê°€ ë§Žì•„ Compaction ìž‘ì—…ì„ ì‹¤í–‰í•˜ë©´, ë‹¤ë¥¸ GC ë°©ì‹ì˜ stop-the-world ì‹œê°„ì´ ë” ê¸¸ê¸° ë•Œë¬¸ì— Compaction ìž‘ì—…ì´ ì–¼ë§ˆë‚˜ ìžì£¼, ì˜¤ëž«ë™ì•ˆ ìˆ˜í–‰ë˜ëŠ”ì§€ í™•ì¸ í•„ìš”
 
 ### G1 GC
-: Young ¿µ¿ª¿¡¼­ µ¥ÀÌÅÍ°¡ Old ¿µ¿ªÀ¸·Î ÀÌµ¿ÇÏ´Â ´Ü°è°¡ »ç¶óÁø GC ¹æ½ÄÀÌ¶ó°í ÀÌÇØÇÏ¸é µÊ
-- CMS GC¸¦ ´ëÃ¼ÇÏ±â À§ÇØ¼­ ¸¸µé¾îÁü
-- ÀåÁ¡
-	- À§¿¡¼­ ¼³¸íµÈ GCµé Áß¿¡¼­ °¡Àå ºü¸£´Ù
-		- JDK 7¿¡¼­ºÎÅÍ Á¤½Ä Æ÷ÇÔµÊ
+: Young ì˜ì—­ì—ì„œ ë°ì´í„°ê°€ Old ì˜ì—­ìœ¼ë¡œ ì´ë™í•˜ëŠ” ë‹¨ê³„ê°€ ì‚¬ë¼ì§„ GC ë°©ì‹ì´ë¼ê³  ì´í•´í•˜ë©´ ë¨
+- CMS GCë¥¼ ëŒ€ì²´í•˜ê¸° ìœ„í•´ì„œ ë§Œë“¤ì–´ì§
+- ìž¥ì 
+	- ìœ„ì—ì„œ ì„¤ëª…ëœ GCë“¤ ì¤‘ì—ì„œ ê°€ìž¥ ë¹ ë¥´ë‹¤
+		- JDK 7ì—ì„œë¶€í„° ì •ì‹ í¬í•¨ë¨
 
 ## GC Algorithms
 ### Default Collector
-- Minor GC¿¡ Scavenge, Major GC¿¡ Mark&compact ¾Ë°í¸®ÁòÀ» »ç¿ëÇÏ´Â ¹æ¹ý
+- Minor GCì— Scavenge, Major GCì— Mark&compact ì•Œê³ ë¦¬ì¦˜ì„ ì‚¬ìš©í•˜ëŠ” ë°©ë²•
 
 ### Parallel GC
-- Minor GC¸¦ µ¿½Ã¿¡ ¿©·¯°³ÀÇ Thread¸¦ ÀÌ¿ëÇØ¼­ GC¸¦ ¼öÇàÇÏ´Â ¹æ¹ý
-- ÁË¼ÒÇÑ 4CPU¿Í 256M Á¤µµÀÇ ¸Þ¸ð¸®¸¦ °¡Áø HW¿¡¼­ À¯¿ëÇÔ
-	- 1CPUÀÇ °æ¿ì MutiThread¿¡ ´ëÇÑ ÀÚ¿øÀÌ³ª °è»êµîÀ» À§ÇØ¼­ CPU Power°¡ »ç¿ëµÇ±â ¶§¹®, ¿ªÈ¿°ú
-- ¹æ½Ä °áÁ¤ ¿É¼Ç
-	- Low-pause, Throughput ¹æ½ÄÀÌ ÀÖÀ½
-- ¾²·¹µå °³¼ö ¼³Á¤ ¿É¼Ç
+- Minor GCë¥¼ ë™ì‹œì— ì—¬ëŸ¬ê°œì˜ Threadë¥¼ ì´ìš©í•´ì„œ GCë¥¼ ìˆ˜í–‰í•˜ëŠ” ë°©ë²•
+- ì£„ì†Œí•œ 4CPUì™€ 256M ì •ë„ì˜ ë©”ëª¨ë¦¬ë¥¼ ê°€ì§„ HWì—ì„œ ìœ ìš©í•¨
+	- 1CPUì˜ ê²½ìš° MutiThreadì— ëŒ€í•œ ìžì›ì´ë‚˜ ê³„ì‚°ë“±ì„ ìœ„í•´ì„œ CPU Powerê°€ ì‚¬ìš©ë˜ê¸° ë•Œë¬¸, ì—­íš¨ê³¼
+- ë°©ì‹ ê²°ì • ì˜µì…˜
+	- Low-pause, Throughput ë°©ì‹ì´ ìžˆìŒ
+- ì“°ë ˆë“œ ê°œìˆ˜ ì„¤ì • ì˜µì…˜
 	- XX:ParallelGCThreads 
-	- ¸î°³ÀÇ Thread¸¦ ÀÌ¿ëÇÏ¿© Parallel GC¿¡ »ç¿ëµÇ´Â ThreadÀÇ ¼ö ÁöÁ¤ °¡´É
+	- ëª‡ê°œì˜ Threadë¥¼ ì´ìš©í•˜ì—¬ Parallel GCì— ì‚¬ìš©ë˜ëŠ” Threadì˜ ìˆ˜ ì§€ì • ê°€ëŠ¥
 
-#### Low-pause ¹æ½Ä
-- CMS, G1 µÎ ¹æ½ÄÀÌ ÀÖÀ½
-	- CMS´Â °í±ÞÆ©´×À» ¿ä±¸ÇÔ
-	- G1Àº JDK 7¿¡¼­ÀÇ °¡¿ë¼º ÀÌÈÄ·Î »ó´çÈ÷ ¾ÈÁ¤¼ºÀÌ ³ô¾ÆÁü, JDK 9¿¡¼­´Â Default
-- FullGC°¡ ¹ß»ýÇÒ¶§ Concurrent GC ¹æ¹ý°ú ÇÔ²² »ç¿ë°¡´É
-- GC¸¦ »¡¸® ÇÏ´Â °ÍÀÌ ¾Æ´Ï¶ó Stop-the-world¸¦ ÃÖ¼ÒÈ­ ÇÏ´Âµ¥ ÁßÁ¡À» µÒ
+#### Low-pause ë°©ì‹
+- CMS, G1 ë‘ ë°©ì‹ì´ ìžˆìŒ
+	- CMSëŠ” ê³ ê¸‰íŠœë‹ì„ ìš”êµ¬í•¨
+	- G1ì€ JDK 7ì—ì„œì˜ ê°€ìš©ì„± ì´í›„ë¡œ ìƒë‹¹ížˆ ì•ˆì •ì„±ì´ ë†’ì•„ì§, JDK 9ì—ì„œëŠ” Default
+- FullGCê°€ ë°œìƒí• ë•Œ Concurrent GC ë°©ë²•ê³¼ í•¨ê»˜ ì‚¬ìš©ê°€ëŠ¥
+- GCë¥¼ ë¹¨ë¦¬ í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼ Stop-the-worldë¥¼ ìµœì†Œí™” í•˜ëŠ”ë° ì¤‘ì ì„ ë‘ 
 
-#### Throughput ¹æ½Ä
-- MinorGC°¡ ¹ß»ýÇßÀ» ¶§ »¡¸®¼öÇà ÇÏµµ·Ï º´·ÄÃ³¸® ÇÏ´Âµ¥ ÁßÁ¡À» µÒ
-	- Major GCÇÒ ¶§ Mark&Compact ¹æ¹ý(Default)À» »ç¿ëÇÏµµ·Ï ÇÔ
+#### Throughput ë°©ì‹
+- MinorGCê°€ ë°œìƒí–ˆì„ ë•Œ ë¹¨ë¦¬ìˆ˜í–‰ í•˜ë„ë¡ ë³‘ë ¬ì²˜ë¦¬ í•˜ëŠ”ë° ì¤‘ì ì„ ë‘ 
+	- Major GCí•  ë•Œ Mark&Compact ë°©ë²•(Default)ì„ ì‚¬ìš©í•˜ë„ë¡ í•¨
 
 ### Concurrent GC
-- Full GC¿¡ ÀÇÇØ¼­ ¹ß»ýÇÏ´Â Stop-the-world Çö»óÀ» ÃÖ¼ÒÈ­ÇÏ±â À§ÇÑ GC ¹æ¹ý
-- ÀÏºÎ´Â ApplicationÀÌ µ¹¾Æ°¡´Â ´Ü°è¿¡¼­ ÀÏºÎ FullGC¸¦ ¼öÇà, ÃÖ¼ÒÇÑÀÇ GCÀÛ¾÷¸¸ ApplicationÀÌ ¸ØÃèÀ» ¶§ ¼öÇà
-- stop-the-world »óÅÂ¿¡¼± initial-mark, remark ÀÛ¾÷¸¸ ¼öÇà
+- Full GCì— ì˜í•´ì„œ ë°œìƒí•˜ëŠ” Stop-the-world í˜„ìƒì„ ìµœì†Œí™”í•˜ê¸° ìœ„í•œ GC ë°©ë²•
+- ì¼ë¶€ëŠ” Applicationì´ ëŒì•„ê°€ëŠ” ë‹¨ê³„ì—ì„œ ì¼ë¶€ FullGCë¥¼ ìˆ˜í–‰, ìµœì†Œí•œì˜ GCìž‘ì—…ë§Œ Applicationì´ ë©ˆì·„ì„ ë•Œ ìˆ˜í–‰
+- stop-the-world ìƒíƒœì—ì„  initial-mark, remark ìž‘ì—…ë§Œ ìˆ˜í–‰
 
 ### Incremental GC ( Train GC )
-- Full GC¿¡ ÀÇÇØ¼­ ¹ß»ýÇÏ´Â Stop-the-world Çö»óÀ» ÃÖ¼ÒÈ­ÇÏ±â À§ÇÑ GC ¹æ¹ý
-- Minor GC°¡ ÀÏ¾î³¯¶§¸¶´Ù Old¿µ¿ªÀ» Á¶±Ý¾¿ GCÇÔ
-	- Full GC°¡ ¹ß»ýÇÏ´Â È½¼ö, ½Ã°£ÀÌ ÁÙ¾îµë ( ÀÌ·Ð»ó )
-- ´À·ÁÁö´Â °æ¿ì°¡ »ý±æ ¼ö ÀÖÀ¸¹Ç·Î ¹Ýµå½Ã Å×½ºÆ® ÈÄ »ç¿ëÇÏ±â
+- Full GCì— ì˜í•´ì„œ ë°œìƒí•˜ëŠ” Stop-the-world í˜„ìƒì„ ìµœì†Œí™”í•˜ê¸° ìœ„í•œ GC ë°©ë²•
+- Minor GCê°€ ì¼ì–´ë‚ ë•Œë§ˆë‹¤ Oldì˜ì—­ì„ ì¡°ê¸ˆì”© GCí•¨
+	- Full GCê°€ ë°œìƒí•˜ëŠ” íšŸìˆ˜, ì‹œê°„ì´ ì¤„ì–´ë“¬ ( ì´ë¡ ìƒ )
+- ëŠë ¤ì§€ëŠ” ê²½ìš°ê°€ ìƒê¸¸ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ ë°˜ë“œì‹œ í…ŒìŠ¤íŠ¸ í›„ ì‚¬ìš©í•˜ê¸°
 
 ---
-## Âü°í¹®Çå
+## ì°¸ê³ ë¬¸í—Œ
 * [NAVER D2 - Java Garbage Collection](http://d2.naver.com/helloworld/1329)
 * [Understanding the G1 Garbage Collector ? Java 9](https://www.dynatrace.com/news/blog/understanding-g1-garbage-collector-java-9/)
-* [JVM ¸Þ¸ð¸®±¸Á¶](http://huelet.tistory.com/entry/JVM-%EB%A9%94%EB%AA%A8%EB%A6%AC%EA%B5%AC%EC%A1%B0)
+* [JVM ë©”ëª¨ë¦¬êµ¬ì¡°](http://huelet.tistory.com/entry/JVM-%EB%A9%94%EB%AA%A8%EB%A6%AC%EA%B5%AC%EC%A1%B0)
 * [JVM PermGen ? where art thou?](https://dzone.com/articles/jvm-permgen-%E2%80%93-where-art-thou)
-* [ÀÚ¹Ù À¥ ÇÁ·Î±×·¡¹Ö - JVM memory¿Í GC Á¾·ù](https://www.slipp.net/wiki/pages/viewpage.action?pageId=26641949)
-* [Java Reference¿Í GC](http://d2.naver.com/helloworld/329631)
-* [JVM GC¿Í ¸Þ¸ð¸® Æ©´×](http://levin01.tistory.com/441)
-* [JVMÀÇ Garbage Collection](https://www.holaxprogramming.com/2013/07/20/java-jvm-gc/)
+* [ìžë°” ì›¹ í”„ë¡œê·¸ëž˜ë° - JVM memoryì™€ GC ì¢…ë¥˜](https://www.slipp.net/wiki/pages/viewpage.action?pageId=26641949)
+* [Java Referenceì™€ GC](http://d2.naver.com/helloworld/329631)
+* [JVM GCì™€ ë©”ëª¨ë¦¬ íŠœë‹](http://levin01.tistory.com/441)
+* [JVMì˜ Garbage Collection](https://www.holaxprogramming.com/2013/07/20/java-jvm-gc/)
