@@ -33,3 +33,4 @@
 ## 참고링크
 * [[OS]메모리 관점에서 본 쓰레트(thread)](https://mooneegee.blogspot.kr/2015/01/os-thread.html)
 * [자바 메모리 누수의 원인과 처방](http://blog.naver.com/deogtae/20014163212)
+* [PermGen 메모리 누수란? - What is a PermGen leak?](http://wiki.sys4u.co.kr/pages/viewpage.action?pageId=7766559)
