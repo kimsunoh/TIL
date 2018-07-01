@@ -1,13 +1,12 @@
 # 4가지 일반 설계 기법
-## Brute force (단순 기법)
-- 		
-## divied and conquer (분할정복)
-- e.g. merge sort
-## decrease and conquer (축소정복)
-- e.g. quick sort
-## Transform and conquer (변환정복)
-- e.g. heap sort 
-	- 특정 속성을 갖고있는 배열을 사용
+- Brute force (단순 기법)
+- divied and conquer (분할정복)
+	- e.g. merge sort
+- decrease and conquer (축소정복)
+	- e.g. quick sort
+- Transform and conquer (변환정복)
+	- e.g. heap sort 
+		- 특정 속성을 갖고있는 배열을 사용
 
 # 다른 주요 설계 기법
 - 지역 탐색 기법
