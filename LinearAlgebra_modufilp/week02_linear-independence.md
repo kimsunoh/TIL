@@ -1,4 +1,5 @@
 # Linear independence (선형독립)
+- **남은 벡터들의 선형결합인 벡터가 존재하지 않는다는, 벡터 집합에 대한 성질이다**
 - 다른 방향성을 가진 벡터들의 집합
 - e.g. 
 	- a = (0,3), b = (4,5)
@@ -45,3 +46,4 @@ v1 = a2*v2 + a3*v3 + ... + an*vn
 ---
 ## 참고링크
 - [linear-independence](https://www.khanacademy.org/math/linear-algebra/vectors-and-spaces#linear-independence)
+- [일차독립](https://ko.wikipedia.org/wiki/일차독립)
