@@ -20,15 +20,11 @@ model ensembles
 
 ---
 ---
-
 # Overview
 ---
 1. One time setup
 ---
-## gradient vanishing (기울기 손실)
-- 활성화 함수를 설정 할 때, 잘못된 표준편차(e.g. 1)를 사용하여 각 층의 활성화값 분포를 구했을 때,분포가 특정 값(0,1)에 치우쳐 나타나는 현상
-- 역전파의 기울기 값이 점점 작아지다가 사라지게 되는 현상
-- 층을 깊게 하는 딥러닝에서 심각한 문제가 될 수 있다
+
 
 2. Training dynamics
 - babysitting the learning process
@@ -69,18 +65,72 @@ h(x) = 1 / ( 1 + exp(-x) )
 ```
 - 입력이 중요하면 큰값을 출력하고, 입력이 중요하지 않으면 작은값을 출력한다
 	- 입력이 작을 때의 출력은 0에 가깝고, 입력이 커지면 출력이 1에 가까워지는 구조이므로
-- 입력이 아무리 작거나 커도 출력은 0에서 1 사이이다
+- problem
+	- 입력이 아무리 작거나 커도 출력은 0에서 1 사이이다
+		- zero centered가 되야하는데 그게 안된다
+			- zero centered가 왜 되어야 하는가?
+	- vanishing gradient 가 발생해서 문제다
+	- exp때문에 연산속도가 오래걸린다
+
+#### gradient vanishing (기울기 손실)
+- 활성화 함수를 설정 할 때, 잘못된 표준편차(e.g. 1)를 사용하여 각 층의 활성화값 분포를 구했을 때,분포가 특정 값(0,1)에 치우쳐 나타나는 현상
+- 역전파의 기울기 값이 점점 작아지다가 사라지게 되는 현상
+- 층을 깊게 하는 딥러닝에서 심각한 문제가 될 수 있다
+
+### tanh
+- vanising gradient가 계속된다
+- sigmoid의 zero-centered를 맞춘것
 
 ### ReLU 함수
 ```math
 h(x) = x (x>0) && 0 (x<= 0)
 ```
 - 0을 넘으면 그 입력을 그대로 출력하고, 0 이하이면 0을 출력하는 함수
+	- 음수는 seturation
+- problem
+	- zero-centered가 충족되지 않음
+	- 음수의 seturation이 문제
+		- 음수 값에도 차이가 있는데, 그것을 고정해버려서 문제가 된다
+		- dead ReLU가 발생해서, 가중치 업데이트가 되지 않음
+- 장점
+	- 일부 노이즈에 대한 오버피팅 확률을 제거할 수 있다
 
-### Leaky ReLU / Maxout / ELU 확인 필요
+### Leaky ReLU
+```
+f(x) = max(0.01x,x)
+```
+
+### PReLU
+```
+f(x) = max(ax,x)
+```
+- a도 구해서 변경할 수 있다.
+
+### ELU
+```
+f(x) = x if x > 0 else a(exp(x) - 1) 
+```
+- 장점
+	- 오버피팅이 방지될 수 있다
+		- 노이즈에 대해서 값을 줄일 수 있다.
+
+### Maxout
+```
+max( w1X + b1, w2X + b2 )
+```
+- 다른 두개의 결과값을 가져와서 그중에 큰 값을 wi로 선택한다
 
 # Data Preprocessing
-# Weight Initialization (가중치 초기화)
+## PCA
+- 차원 축소
+
+## whitening **
+- ??
+
+## TLDR
+- 
+
+# Weight Initialization (가중치 초기화) p.203
 - 가중치의 초깃값을 무엇으로 설정하느냐가 신경망 학습에 영향이 높다
 - 주의점
 	- 가중치를 균일한 값으로 설정하면 안된다
@@ -104,15 +154,22 @@ h(x) = x (x>0) && 0 (x<= 0)
 
 # Batch Normalization
 - 레이어를 기준으로 입력 데이터를 정규화하는 것
+- 중심배치의 정리
+	- 가우시안의 정리를 Normaliztion 해보자 한 것
+- 장점
+	- Improves gradient flow through the network
+	- Allows higher learning rates
+	- Reduces the strong dependence on initialization
+	- Acts as a form of regularization in a funny way, and slightly reduces the need for dropout, maybe
 
 # Babysitting the Learning Process
 
-# Hyperparameter Optimization (매개변수 최적화)
+# Hyperparameter Optimization (매개변수 최적화) p.191
 - 신경망 학습의 목적은 손실 함수의 값ㅇ르 가능한 한 낮추는 매개변수를 찾는 것
 	- optimization : 매개변수 최적값을 찾는 문제
 - SGD(확률적 경사 하강법)
 	- 매개변수 값을 찾는 단서로 미분(매개변수의 기울기)을 이용하는 방법
-	- 매개변수의 기울기를 수해, 기울어진 방향으로 매개변수 값ㅇ르 갱신하는 일을 몇 번이고 반복해서 점점 최적의 값에 다가가는 방법
+	- 매개변수의 기울기를 수해, 기울어진 방향으로 매개변수 값을 갱신하는 일을 몇 번이고 반복해서 점점 최적의 값에 다가가는 방법
 
 ## SGD
 - 장점
