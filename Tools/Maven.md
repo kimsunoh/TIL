@@ -1,5 +1,3 @@
-* 이 글은 [DevKuma](http://www.devkuma.com/)의 [Maven](http://www.devkuma.com/books/pages/102)을 기본으로 다른 링크들을 같이 학습하며 정리한 내용입니다
-
 # Maven 준비
 
 ## build tool
@@ -42,3 +40,8 @@ MAVEN_HOME=/opt/maven
     2. 확인
         - 프로젝트의 루트 디렉토리 my-app과 mvn 자원이 작성되어 있는지 확인
     3.응용 프로그램의 jar 작성 및 실행
+    
+---
+## 참고링크
+- [DevKuma Maven](http://www.devkuma.com/books/pages/102)
+- [SLIPP - 자바 세상의 빌드를 이끄는 메이븐](https://www.slipp.net/wiki/pages/viewpage.action?pageId=10420233)
