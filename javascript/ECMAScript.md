@@ -15,7 +15,59 @@
 # ECMAScript6
 - ECMAScript의 6번째 에디션
 
+## ES6 new Feature
+- class 문법 제공
+    - extends 를 이용한 상속 가능, constructor 제공
+- let & const
+    - const : final 변수
+    - let : block 지정 변수
+
+### arrow Functions
+- 축약형 함수. 
+
+### classes
+
+### enhanced object literals
+
+### template strings
+
+### destructuring
+
+### default + rest + spread 
+
+### let + const
+
+### iterators + for...of
+
+### generators
+
+### unicode
+
+### modules
+
+### module loaders
+
+### map + set + weakmap + weakset
+
+### proxies
+
+### subclassable built-ins
+
+### promises
+
+### math + number + string + array + object APIs
+
+### binary and octal literals
+
+### reflect api
+
+### tail calls
+    
 ---
 ## 참고링크
 - [wikipedia korea ECMA스크립트](https://ko.wikipedia.org/wiki/ECMA스크립트)
 - [wikipedia ECMAScript](https://en.wikipedia.org/wiki/ECMAScript)
+- [ecma international](https://www.ecma-international.org/ecma-262/6.0/)
+- [자바스크립트 개발자 포럼 ES6 문법 정리](https://jsdev.kr/t/es6/2944)
+- [GitHub ES6시대의 JavaScript](https://gist.github.com/marocchino/841e2ff62f59f420f9d9)
+
