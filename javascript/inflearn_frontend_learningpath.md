@@ -17,7 +17,6 @@
 ## 실습 중 학습내용
 - array, for, if else, function 
 - 대부분의 프레임워크, 라이브러리가 나오게 된 결정적인 이유는 `중복의 제거` 때문이다
-- 
 
 ### Event
 - tag에 일어난 이벤트를 처리하는 것
@@ -46,7 +45,7 @@
 ### Object & methods
 - 객체와 함수의 관계는 함수에서 객체를 사용하는 관계이다
 - 생성법
-```javascript
+```javascript   
 var coworkers = {
     "programmer" : "kimsno",
     "author" : "a. d. 보통"
@@ -88,7 +87,6 @@ coworkers = {
 
 # javascript Data Type
 - primitive type, reference type이 있음
-- 
 
 ## Primitive Type
 - Number, String, Boolean, null, undefined
@@ -164,6 +162,7 @@ var c = function() { //변수 선언 & 익명함수 선언
 ### Scope
 - 변수의 유효범위
 - 함수가 정의될 때 결정됨
+    - 함수의 context가 정의될 때 생성됨 
 - Global Scope & Global Context, function Scope & function Context
 
 ### Execution context
@@ -238,9 +237,133 @@ obj.sum
     - 기본적으로 함수 내부에서 호출하는 것과 동일
     - bind, call, apply
 - 생성자 함수에서
-    - 인스턴스
+    - 인스턴
  
 ## scope chain
 - 내부함수에서의 우회법
 - Object의 내부 function에서 object의 this객체를 변수에 저장해 object 자체의 scope를 탐색하는 방법
+
+# Closure
+- 함수와 함수가 선언된 정보를 담은 lexical enviroment의 조합이다
+    - 함수와 "그 함수가 선언될 당시의 환경정보"사이의 조합
+- 함수 내부에서 생성한 데이터와 그 유효범위로 인해 발생하는 특수한 현상/상태 
+    
+## lexical enviroment
+- 사전적인 한경
+- 선언 당시의 환경에 대한 정보를 담는 객체, **변하지 않음**
+- return function을 하게되면 변하지 않는다
+    
+## 사용 방법
+- 접근 권한 제어
+- 지역 변수 보호
+    - function의 내부에 선언된 변수의 경우 외부에선 호출 불가능하다
+- 데이터 보존 및 활용
+    - function a()을 외부의 변수 c에 생성한다면, c에선 a()내부에 선언된 x값을 가져올 수 있게된다
+    - 외부에서 권한을 주려면, 외부에서 접근할 수 있는 권한을 줘야함
+        - 함수에서 반환 값에 getter&setter를 넣어서 반환하면 됨 
+```javascript
+function a() {
+    var _x = 1;
+    return {
+        get x() { return _x; },
+        set x(v) { _x = v; }
+    }
+}
+
+var c = a();
+c.x = 10;
+```
+    - 이렇게 되면 `_x`에 대해서는 직접적으로 접근을 할 수는 없지만, getter&setter를 이용해서 접근 할 수 있게됨
+```javascript
+function setCounter() {
+    var count = 0;
+    return function() {
+        return ++count;
+    }
+}
+
+var count = setCounter();
+count(); // count에는 setCounter의 익명함수가 들어있음. 그러므로 named function으로 count()가 전역에 선언되어 있지 않으면 count()를 실행했을 때. 익명함수가 실행되고 그 결과가 return 되게 됨 
+```
+
+## private member
+- 외부에서 값을 변경할 수 없게 만들기 위해서 필요함
+    - 값을 변경할 수 없게 하려면, scope 안에 넣으면 되지 않을까?
+
+### 만들기
+1. 함수에서 지역변수 및 내부함수 등을 생성한다
+2. 외부에 노출시키고자 하는 멤버들로 구성된 객체를 return한다
+    - return한 객체에 포함되지 않은 멤버들은 private하다
+    - return한 객체에 포함된 멤버들은 public하
+
+# Prototype
+
+## prototype, constructor, __proto__
+- constructor로 생성한 instance의 __proto__는 constructor의 prototype과 매칭이 된다
+    - prototype이라고 하는 property는 객체이다
+        - Array 타입의 prototype엔 array의 function들이 들어있다 
+    - instance의 __proto__는 (__proto__)를 `명시하지 않고 접근할 수 있다`
+
+### 접근 방법
+- 생성자함수의 prototype에 접근할 수 있는 방법
+```javascript
+[CONSTRUCTOR].prototype
+[instance].__proto__
+[instance]
+Object.getPrototypeOf([instance])
+```
+- 생성자함수에 접근할 수 있는 방법
+```javascript
+[CONSTRUCTOR]
+[CONSTRUCTOR].prototype.constructor
+(Object.getPrototypeOf([instance])).constructor
+[instance].__proto__.constructor
+[instance].constructor
+```
+
+## method 상속 및 동작 원리
+```javascript
+function Person(n,a) {
+    this.name = n;
+    this.age = a;
+}
+
+Person.prototype.setOlder = function() { this.age += 1; }
+Person.prototype.getAge = function() { return this.age; }
+``` 
+- 생각해 볼 것, `.prototype`을 명시 했을때와 안했을 때 property `setOlder`를 호출할때의 차이
+
+# Class
+- 공통적인 속성을 모아서 한데 묶은 집단
+- Class는 어떤 공통된 속성이나 기능을 정의한 추상적인 개념, 이 Class에 속한 객체를 instance라 함. instance에서 접근할 수없는 static method, static property와 instance에서 접근할 수 있는 method,property로 이루어져 있다
+
+## prototype static 메소드 및 static 프로퍼티
+- Class의 prototype으로 선언되지 않고 직접적으로 선언되어 있는 method를 `static method`, property를 `static property`라고 한다
+- 보통 소속인 instance들의 공동체 여부 확인이나, 소속부여 같은 공동체 적인 처리를 하기위해 사용한다
+- instance에서는 static멤버들엔 접근 할 수 없다
+
+## Class 상속 구현
+```javascript
+function Bridge() {}; //method만 prototype에 받기 위해 커넥션 용으로 사용할 객체
+Bridge.prototype = Parent.prototype;
+Child.prototype = new Bridge();
+Child.prototype.constructor = Child //기본적으로 constroctor를 생성해주므로, 이것을 명시적으로 제시해줘야함 (그렇지 않으면 Parent의 constructor를 prototype으로 갖게됨)
+Child.prototype.newfunction = function() { ...; }
+``` 
+- Douglas Crockford는 Clouser를 사용해서 반복적인 클래스 상속 코드를 Object로 만들어서 사용하길 권고함
+```javascript
+var extendClass = (function() {
+    function Bridge(){}
+    return function()(Parent, Child) {
+        Bridge.prototype = Parent.prototype;
+        Child.prototype = new Bridge();
+        Child.prototype.constructor = Child;
+        Child.prototype.superClass = Parent;
+    }
+})();
+extendClass(Person, Employee);
+Employee.prototype.getPosition = function() {
+    return this.position;
+}
+```
 

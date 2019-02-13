@@ -16,3 +16,4 @@
 ## HTMLMediaElement, WebRTC, Audio and Video API
 - 멀티미디어를 활용할 수 있는 기술 지원
     - e.g. 음악, 비디오를 웹 페이지 상에서 재생하고, 웹캠으로 캡처하고 다른 컴퓨터에 표시하는 등 
+    
