@@ -367,3 +367,27 @@ Employee.prototype.getPosition = function() {
 }
 ```
 
+---
+*[누구든지 하는 리액트 by.velopert(김민준)](https://www.inflearn.com/course/react-velopert/)*
+
+# React는 무엇인가?
+- 프론트엔드 라이브러리
+
+## 프론트엔드 라이브러리
+- 
+
+# React 프로젝트 시작하기
+
+# JSX
+
+# props와 state
+
+# LifeCycle API
+
+# 리액트 작업한경 직접 설정하기
+
+# 인풋 상태 관리
+
+# 배열 데이터 렌더링 및 관리
+
+# 최적화, 활용, Ref
