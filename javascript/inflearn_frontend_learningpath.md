@@ -372,13 +372,67 @@ Employee.prototype.getPosition = function() {
 
 # React는 무엇인가?
 - 프론트엔드 라이브러리
+- virtual DOM을 이용해서 DOM을 수정하는 일을 간편하게 하고싶은 마음에서 시작됨
+- 웹 개발을 할 때, 귀찮은 DOM 관리와 상태값 업데이트 관리를 최소화하며 기능개발, 인터페이스 구현에 집중할 수 있도록 하기위해 만들어진 프론트엔드 라이브러리
 
-## 프론트엔드 라이브러리
-- 
+## react 특징
+- "component" 개념에 집중한 라이브러리
+    - 데이터를 넣으면 우리가 지정한 유저 인터페이스를 조립해서 보여줌
+- 생태계가 넓다
+    - 다양한 개발자, 회사가 사용하고 피드백과 결과의 순환이 빠르다
+- HTTP 클라이언트, 라우터, 심화적 상태관리 등의 기능은 내장되어있지 않음
+    - 많이 사용하는 외부 라이브러리 예시
+        - 라우터 : React-router, Next.js, After.js
+        - 상태 관리 라이브러리 : Redux, ModX, fr(e)actal
+
+## 리액트의 Virtual DOM
+- facebook의 생각, "Mutation을 하지 말자. 그 대신에, 데이터가 바뀌면 그냥 뷰를 날려버리고 새로 만들어버리면 어떨까?" 라는 생각에서 시작
+    - 기존의 모델들에선 Model이 변경되면 View도 바뀌는 양방향 binding 방식을 사용하고 있었음
+- 가능하게 하기 위한것이 Virtual DOM, 변화가 필요한 곳만 Update를 하는 것
+    - html 페이지는 DOM 형식으로 되어 있기 때문에, 필요한 위치만 수정하는 것이 불가능 함
+- 바뀐 데이터로 그려넣은 다음에 바뀐부분이 어딘지 파악하고 수정하는 것
+    - DOM 객체이므로 바뀐 부분을 찾아서 부모까지 올라가서 수정을 함
 
 # React 프로젝트 시작하기
 
+## Webpack
+- 코드들을 의존하는 순서대로 하나 이상의 결과물로 만들어내는 역할
+
+## babel
+- Javascript변환 도구
+- JS의 발전에 따라 문법이 달라졌는데, 그것을 다른 프레임워크들에서 모두 지원을 해주지 않기 때문에, 그것을 지원가능한 문법으로 변화 시켜서 사용하기 위해서 사용함
+
+## 실습
+```
+# nvm 설치
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# node install
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+nvm install --lts
+
+brew install yarn --ignore-dependencies
+
+yarn global add create-react-app
+
+npm install -g eslint
+
+create-react-app learning-javascript
+
+cd learning-javascript
+eslint --init
+
+yarn start # react app 기동
+```
+
 # JSX
+- Component를 만들때에는, render()가 반드시 있어야 하고, render()의 return 값은 반드시 JSX여야한다
+- 파일에서 JSX를 사용하려면, 꼭 React를 import 해주어야한다
+- 가장 상위에있는 element는 무조건 하나여야 한다
+    - e.g. <div>...</div>, <Fragement>...</Fragement> ( V.16.2 이후 )
 
 # props와 state
 
