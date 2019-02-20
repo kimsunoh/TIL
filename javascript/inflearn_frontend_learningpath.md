@@ -432,7 +432,7 @@ yarn start # react app 기동
 - Component를 만들때에는, render()가 반드시 있어야 하고, render()의 return 값은 반드시 JSX여야한다
 - 파일에서 JSX를 사용하려면, 꼭 React를 import 해주어야한다
 - 가장 상위에있는 element는 무조건 하나여야 한다
-    - e.g. <div>...</div>, <Fragement>...</Fragement> ( V.16.2 이후 )
+    - e.g. ``` <div>...</div>, <Fragement>...</Fragement> // ( V.16.2 이후 ) ```
 
 # props와 state
 
