@@ -87,12 +87,12 @@ for(variable of object)
 ### 비교연산자
 - strict equality : ===
 ```javascript
-console.log("33" === 33 ? true : false ); // false
+console.log(`33` === 33 ? true : false ); // false
 ```
 - loose equality : ==
     - 두 값이 같은 객체를 가리키거나 같은 값을 갖도록 변환할 수 있다면 두 값을 동등하다고 한다
 ```javascript
-console.log("33" == 33 ? true : false ); // true 
+console.log(`33` == 33 ? true : false ); // true 
 ```
    - 문자열은 미리 숫자로 변환해서 일치하는지 비교해야함 (권장)
 
@@ -110,12 +110,12 @@ let n = 0;
 while(){
     n += 0.1;
     if(n === 0.3) {
-        console.log("strict true");
+        console.log(`strict true`);
         break;
     }
     
     if(Math.abs(n-0.1) < Number.EPSILON ){
-        console.log("EPSILON true");
+        console.log(`EPSILON true`);
         break;
     }
 }
@@ -123,8 +123,8 @@ while(){
 
 ## 논리연산자
 - 논리값
-    - false : undefined, null, false, 0, NaN, ''(빈문자열)
-    - true : 모든 객체, 배열, 공백만 있는 문자열, 문자열 "false" etc
+    - false : undefined, null, false, 0, NaN, ``(빈문자열)
+    - true : 모든 객체, 배열, 공백만 있는 문자열, 문자열 `false` etc
 
 ## 비트연산자
 | 연산자 | 설명 |
@@ -138,7 +138,7 @@ while(){
 |>>> | Zeso-fill 오른쪽 시프트|
 
 ## destructuring assignment (해체할당)
-- 객체나 배열을 변수로 'destructuring' 할 수 있는 기능
+- 객체나 배열을 변수로 `destructuring` 할 수 있는 기능
 - 객체를 destructuting 할 때는 반드시 변수 이름과 객체의 프로퍼티 이름이 일치해야함
     - property이름이 유효한 식별자인 property만 해체 후 할당된다
 ```javascript
@@ -149,10 +149,10 @@ const obj = {b:2, c:3, d:4};
 
 // destructuting assignment
 const {a,b,c} = obj;
-a;  // undefined, obj에는 "a" 프로퍼티가 없다
+a;  // undefined, obj에는 `a` 프로퍼티가 없다
 b;  // 2
 c;  // 3
-d;  // ReferrenceError, "d"는 정의되지 않음
+d;  // ReferrenceError, `d`는 정의되지 않음
 ```
 - 배열을 해체할 때는 배열 요소에 대응할 변수 이름을 마음대로 쓸 수 있음
     - 이들은 배열 순서로 대응함, 일부는 지정하고 나머지 요소는 spread operator를 사용하면 남은 요소를 새 배열에 할당할 수 있다
@@ -176,7 +176,7 @@ funca({a:1, b:123, c:aa});
 - ES6에서 추가된 기능
 - 매개변수에 default value를 지정하는 기능
 ```javascript
-function funca(a, b="default", c=33}) {}
+function funca(a, b=`default`, c=33}) {}
 ```
 - default값을 설정하지 않은 매개변수에 값을 제공하지 않으면 undefind가 값으로 할당됨
 
@@ -193,7 +193,7 @@ let obj = {
     // Methods
     toStroing() {
         // Super calls
-        return "d " + super.toString();
+        return `d ` + super.toString();
     }
 }
 ```
@@ -219,10 +219,10 @@ nums.forEach(v=> {
 
 // Lexical this
 var bob = {
-    _name : "kimsunoh",
-    _subject : ["javascript", "ES6", "React", "babel",],
+    _name : `kimsunoh`,
+    _subject : [`javascript`, `ES6`, `React`, `babel`,],
     printSubjects() {
-        this._subject.forEach( s => console.log(this.__name + " learn to " + s ));
+        this._subject.forEach( s => console.log(this.__name + ` learn to ` + s ));
     }
 }
 ```
@@ -232,13 +232,13 @@ var bob = {
 ### call
 - 정의된 함수를 호출하면서 `call`을 사용하고 this로 사용할 객체를 넘기면 해당 함수가 주어진 객체의 method인 것처럼 사용할 수 있다
 ```javascript
-const bruce = {name:"Bruce"};
+const bruce = {name:`Bruce`};
 
 function sayHello() {
-    return "Hello, I'm ${this.name}!";
+    return `Hello, I`m ${this.name}!`;
 }
 
-sayHello.call(bruce); // Hello, I'm Bruce
+sayHello.call(bruce); // Hello, I`m Bruce
 ```
 - 매개변수는 call(this로 사용할 객체 [, args ...])
 
@@ -258,10 +258,110 @@ sayHello.call(bruce); // Hello, I'm Bruce
     - 배열 자체를 수정 : push, pop, unshift, shift, splice, copyWhithin, fill, reverse, sort, reduce
     - 사본 반환 : concat, slice, map, filter, join
 
+# Object & OOP
+- 문법
+```javascript
+class Car {
+    constructir() {
+        
+    }
+}
 
+const car1 = new Car();
+car instanceof Car // true
+```
+- (ES6 전까지) 클래스를 만든다는 것은 곧 클래스 생성자로 사용할 함수를 만든다는 의미, class 문법이 생기며 직관적이고 단순한 문법으로 표현할 수 있게됨
+    - class == function
+
+## prototype
+- 자바스크립트 객체는 속성을 저장하는 동적인 `Object`와 prototype 객체에 대한 링크를 가진다
+- 객체의 어떤 속성에 접근하려 할 때 그 객체 자체 속성뿐만 아니라 객체의 prototype, 그 prototype의 prototype 을 타고 prototype 체인의 끝까지 타고 올라가 속성을 탐색한다
+- 프로토타입 체인의 길이는 성능을 저해하지 않도록 줄이는 방법을 고안해야 한다
+**- 빌트인 프로토타입은 새로운 자바스크립트 기능과 호환성을 갖기 위한 이유가 아닌 이상 절대 확장해서는 안된다**
+- 속성 접근 순서
+    1. 새 객체의 속성에 접근할 떄, 해당 객체가 직접적으로 속성을 소유하고 있는지 먼저 체크한다
+    2. 없다면, [[Prototype]]을 체크한다
+    3. 1-2를 프로토타입 체인을 따라서 모든 객체의 프로토타입 체인의 최상위에 있는 객체인 Object.prototype에 도달할 때 까지 반복한다
+
+### prototype 상속의 종류
+
+#### Delegation inheritance (위임형 상속)
+- Delegation 상속에서 prototype의 객체는 다른 객체의 기반이 된다
+    - Delegation prototype을 상속받을 경우 새 객체는 해당 프로토타입에 대한 참조를 가지고 있다
+- 장점
+    - 메소드를 위임 상속할 경우 모든 객체가 각 메소드에 대해 하나의 코드를 공유하므로 메모리를 절약할 수 있다
+- 단점
+    - 객체나 배열의 상태를 변경하게 되면 같은 프로토타입을 공유하는 모든 객체의 상태가 변경된다
+        - 상태를 저장하는데 그리 좋은 방법이 아니라는 점
+        - 상태 변경이 전파되는 것을 막으려면 각 객체마다 상태 값의 복사본을 만들어야 한다
+```javascript
+class Greeter {
+    constructor (name) {
+        this.name = name || `Jhon Doe`;
+    }
+    
+    hello() {
+        return `Hello, my name is ${ this.name }`;
+    }
+}
+
+const george = new Greeter(`George`);
+const msg = george.hello();
+console.log(msg); //Hello, my name is George
+```
+
+#### Concatenative inheritance (연결형 상속)
+- 연결형 상속은 한 객체의 속성을 다른 객체에 모두 복사함으로써 상속을 구현하는 방법
+- Javascript 객체의 동적 확장성을 이용한 방법
+    - 객체 복사는 속성의 초기값을 저장하기 위한 방법
+- 클로져와 같이 사용한다면 훨씬 효과적으로 사용할 수 있는 상속방식
+```javascript
+const proto = {
+    hello: function hello() {
+        return `hello, my name is ${ this.name }`;
+    }
+}
+
+const george = Object.assign({}, proto, {name: `George``});
+const msg = george.hello();
+console.log(msg); // Hello, my name is George
+```
+
+#### Funcional inheritance (함수형 상속)
+- 새 속성들을 연결형 상속으로 쌓되 상속 기능을 Factory함수로 만들어 사용하는 방식
+- 기존의 객체를 확장하는데 쓰이는 함수를 일반적으로 믹스인 함수라 칭한다. 객체 확장에 함수를 사용하는 가장 큰 이점은 Private Data를 클로져를 통해 캡슐화 시킬 수 있다는 점
+    - private 상태를 지정할 수 있다는 의미
+- 특정 함수를 통할 필요 없이 public 접근이 가능한 속성에 대해 접근 제한을 거는 것은 문제가 있다. 따라서, private 클로져에 속성 값을 숨겨야 하며 이는 아래와 같이 구현한다
+```javascript
+const rawMixin = function() {
+    const attrs = {};
+    return Object.assign(this, {
+        set(name, value) {
+            attrs[name] = value;
+            this.emit(`change`, {
+                prop: name,
+                value: values
+            })
+        },
+        get(name) {
+            return attrs[name];
+        }
+    }, Events.prototype);
+}
+
+const mixinModel = (target) => rawMixin.call(target);
+const george = {name: `george`};
+const model = mixinModel(george);
+model.on(`change`, data => console.log(data));
+model.set(`name`, `Sam`);
+```
+- `attrs`을 public 속성에서 private 영역으로 옮겨서 public API를 통해 접근을 차단할 수 있다
+    - 접근할 수 있는 유일한 방법은 Privileged 메소드를 사용하는 방법
+        - Privileged : 클로져 영역에 정의된 함수로 private data에 접근 가능한 함수들을 일컫는다
+
+- 
 ---
 ## 참고링크&문헌
 - [learning javascript](http://www.yes24.com/Product/Goods/18723024)
 - [JSDEV ES6문법 정리](https://jsdev.kr/t/es6/2944)
-
-
+- [MDN Javascript Docs](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide)
