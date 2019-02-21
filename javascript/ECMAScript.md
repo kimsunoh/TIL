@@ -30,7 +30,7 @@
 ### object literals
 
 ### template iterals
-- 템플릿 리터럴은 이중 따옴표나 작은 따옴표 대신 백틱(` `)을 이용한다
+- 템플릿 리터럴은 이중 따옴표나 작은 따옴표 대신 백틱(\` \` )을 이용한다
 - 플레이스 홀더(${expression})를 이용하여 표현식을 넣을 수 있다 
 - multi-line
 ```javascript
