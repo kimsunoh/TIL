@@ -434,14 +434,5 @@ yarn start # react app 기동
 - 가장 상위에있는 element는 무조건 하나여야 한다
     - e.g. ``` <div>...</div>, <Fragement>...</Fragement> // ( V.16.2 이후 ) ```
 
-# props와 state
 
-# LifeCycle API
-
-# 리액트 작업한경 직접 설정하기
-
-# 인풋 상태 관리
-
-# 배열 데이터 렌더링 및 관리
-
-# 최적화, 활용, Ref
+*나머지 내용은 [react.md](https://github.com/kimsunoh/TIL/blob/master/javascript/react.md)에 이어서 작성함*
