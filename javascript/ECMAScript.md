@@ -22,8 +22,36 @@
     - const : final 변수
     - let : block 지정 변수
 
-### arrow Functions
-- 축약형 함수. 
+### [arrow Functions](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/애로우_펑션)
+- 축약형 함수
+    - function 표현에 비해 구문이 짧고 자신의 this, arguments, super, new.target을 바인딩 하지 ㅇ낳는다
+- 항상 익명이며 메소드 함수가 아닌 곳에 가장 적합하다
+    - 생성자로 사용할 수 없다
+
+#### 구문
+```js
+(param1, param2, ... paramN) => { statements }
+(param1, param2, ... paramN) => expression 
+(param1, param2, ... paramN) => { return expression; } // 위와 동일함
+
+// 매개변수가 하나뿐일 경우 괄호는 선택사항
+(singleParam) => { statements }
+singleParam => { statements }
+
+// 매개변수가 없는 함수는 괄호가 필요
+() => {}
+
+// 객체 리터럴 표현을 반환하기 위해서는 함수 body를 괄호 속에 넣음 ?!
+param => ({foo:bar})
+
+// default 매개변수, rest 매개변수를 지원함
+(param1, param2, ...restparam) => { statements }
+(param1 = defaultValue1, param2, ..., paramN = defaultValueN) => { statements }
+
+// 매개변수 destructuring 지원됨
+var f = ([a, b] = [1, 2], {x: c} = {x: a+b} ) => a + b + c;
+f(); //6, 이렇게 사용 가능
+```
 
 ### classes
 

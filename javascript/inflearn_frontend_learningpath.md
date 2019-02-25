@@ -434,5 +434,129 @@ yarn start # react app 기동
 - 가장 상위에있는 element는 무조건 하나여야 한다
     - e.g. ``` <div>...</div>, <Fragement>...</Fragement> // ( V.16.2 이후 ) ```
 
+## css
+- Object 객체를 이용해서 선언 후 사용
+- `-`를 사용하는 옵션의 경우, 카멜 표기법을 사용해서 대체함
+    - e.g. background-color > backgroundColor
+
 
 *나머지 내용은 [react.md](https://github.com/kimsunoh/TIL/blob/master/javascript/react.md)에 이어서 작성함*
+
+
+# Props & State
+
+## Props 
+- 부모 컴포넌트가 자식 컴포넌트한테 전달될 때 사용된다
+- 자식의 입장에선 읽기만 가능함
+
+### code
+
+#### App.js
+```jsx harmony
+import React, { Component } from "react";
+import MyName from "./MyName";
+
+class App extends Component {
+  render() {
+    return <MyName name="리액트" />;
+  }
+}
+
+export default App;
+```
+
+#### MyName.js 
+```jsx harmony 
+import React, { Component } from "react";
+
+class MyName extends Component {
+    static defaultProps = {
+      name: "kimsno"
+    };
+    
+    render() {
+        return (
+            <div>
+                안녕하세요! 제 이름은 <b>{this.props.name}</b>입니다.
+            </div>
+        );
+    }
+}
+
+export default MyName; 
+```
+     
+#### MyName.js - 함수형
+```
+import React from "react";
+const MyName = ({ name }) => {
+  return <div>안녕하세요. 제 이름은 {name} 입니다.</div>;
+};
+
+MyName.defaultProps = { name: "kimsno" };
+export default MyName;
+```
+
+## State
+- 자식 컴포넌트에서 이미 만들어진 객체, 자기자신이 들고있는 객체
+- 내부에서 변경 할 수 있다
+    - 부모에서 렌더링이 된 후 event를 통해서 값이 변경될 수 있다
+- 값을 변경할 때는 언제나 setState라는 함수를 사용한다
+    - setState를 사용하지 않으면 rerendering 되지 않는다
+
+### 예시
+```jsx harmony
+import React, { Component } from "react";
+
+class Counter extends Component {
+  state = {
+    number: 0
+  };
+
+  handleIncrease = () => {
+    this.setState({
+      number: this.state.number + 1
+    });
+  };
+
+  handleDecrease = () => {
+    this.setState({
+      number: this.state.number - 1
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>카운터</h1>
+        <div>값: {this.state.number}</div>
+        <button onClick={this.handleIncrease}>+</button>
+        <button onClick={this.handleDecrease}>-</button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+```
+
+# LifeCycle API
+- Conponent가 우리 화면에서 Mountion(나타날 때), Updating(업데이트 될 때), Unmounting(사라질 때) 각각의 시점 중간에 처리하고 싶은 작업이 있을때 사용할 수 있는 것
+
+## [주요 API](https://react-anyone.vlpt.us/05.html)
+- componentDidMount
+    - 컴포넌트가 나타나고난 시점에 어떤 작업을 할때 사용한다
+    - API를 요청하거나, event를 등록할때
+    - DOM에 관련된 작업을 할 때 사용가능
+- shouldComponentUpdate
+    - virtualDom에 그리는 성능이 아까울때 성능 최적화를 이용해 사용한다
+        - 부모컨테이너가 리렌더링 되면 자식 함수들도 다 리렌더링 된다
+    - virtualDom에도 render를 할지 말지에 대해서 작업 처리를 할 때 사용
+- getSnapshotBeforeUpdate
+    - 화면에 Dom이 뿌려지기 전에 Snapshot을 update하는 함수
+- componentDidUpdate
+    - 컴포넌트가 변경이 되었을 때, 이전의 snapshot과 비교후 업데이트 되었으면 처리를 설정 할 수 있다
+- ComponentDidCatch 등등이 있다
+
+
+
