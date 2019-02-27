@@ -191,7 +191,7 @@ System.get('jquery'); //모듈 캐시 직접 조작
 - 객체 상태의 접근 제어를 가능하게 한다
 - Symbol은 새로운 원시 타입으로 이름 충돌의 위험 없이 property(속성)의 key로 사용할 수 있다
 - 옵션 파라미터인 description은 디버깅 용도로 사용되며 식별 용도는 아니다
-- Symbol은 unique하며, Object.getOwnPropertySymbols와 같은 reflection 기능들로 접근할 수 있기 때문에 private gkwls  dksgek
+- Symbol은 unique하며, Object.getOwnPropertySymbols와 같은 reflection 기능들로 접근할 수 있다
 
 ### subclassable built-ins
 
@@ -213,4 +213,4 @@ System.get('jquery'); //모듈 캐시 직접 조작
 - [자바스크립트 개발자 포럼 ES6 문법 정리](https://jsdev.kr/t/es6/2944)
 - [GitHub ES6시대의 JavaScript](https://gist.github.com/marocchino/841e2ff62f59f420f9d9)
 - [HACKS ES6 In Depth: 심볼 (Symbol)](http://hacks.mozilla.or.kr/2015/09/es6-in-depth-symbols/)
-
+- [ES6 문법으로 다시 시작하는 자바스크립트](https://hudi.kr/es6-문법으로-다시-시작하는-자바스크립트/)

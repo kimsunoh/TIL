@@ -414,18 +414,14 @@ export NVM_DIR="$HOME/.nvm"
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 nvm install --lts
 
-brew install yarn --ignore-dependencies
-
-yarn global add create-react-app
-
 npm install -g eslint
 
-create-react-app learning-javascript
+npx create-react-app learning-javascript
 
 cd learning-javascript
 eslint --init
 
-yarn start # react app 기동
+npm start # react app 기동
 ```
 
 # JSX
@@ -557,6 +553,4 @@ export default Counter;
 - componentDidUpdate
     - 컴포넌트가 변경이 되었을 때, 이전의 snapshot과 비교후 업데이트 되었으면 처리를 설정 할 수 있다
 - ComponentDidCatch 등등이 있다
-
-
 
