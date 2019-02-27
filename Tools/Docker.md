@@ -19,7 +19,7 @@
     - 메모리 접근, 파일시스템 등 실행 환경의 자원을 사용하는 속도가 가상 머신에 비해 월등히 빠름
 - 이미지 생성과 배포에 특화됨
     - 이미지 버전 관리 기능과 중앙 저장소 제공 
-        - Docker Hub 제공
+        - Docker Hub 제공    
 
 ## image? container?
 - image
@@ -38,10 +38,34 @@
 - 각 이미지는 의존관계가 형성
 - 컨테이너로 실행할 때는 베이스 이미지와 바뀐 부분을 합쳐서 실행
 
-## 서비스 운영 환경과 도커
-- 
+## 로고로 알아보는 도커
+- docker : 부두 노동자를 뜻함. 컨테이너를 다루는 도커의 기능과 비슷함 
+-
 
 # Docker 기본 사용법
+- 설치는 [dockerhub - Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)에서 Doker.dmg 다운 후 진행
+
+## container 실행하기
+- 명령어
+```
+$ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+
+// ubuntu 16.04 container
+$ docker run ubuntu:16.04
+```
+    - run 
+- 자주 사용되는 옵션
+| 옵션 | 설명 | 
+| --- | --- |
+| -d | detached mode (백그라운드 모드) |
+| -p | 호스트와 컨테이너의 포트 포워딩 |
+| -v | 호스트와 컨테이너 디렉토리 마운트 |
+| -e | 컨테이너 내에서 사용할 환경변수 설정 |
+| -name | 컨테이너 이름 설정 |
+| -rm | 프로세스 종료시 컨테이너 자동 제거 |
+| -it | -i 와 -t를 동시에 사용한 것, 터미널 입력을 위한 옵션 |
+| -link | 컨테이너 연결 [컨테이너:별칭] |
+
 
 ## 명령어
 ```
@@ -124,9 +148,10 @@ $ docker diff hello-nginx
 $ docker inspect hello-nginx
 ```
 
-
 ---
 ## 참고문헌
 - [초보를 위한 도커 안내서 - 도커란 무엇인가?](https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html)
+- [초보를 위한 도커 안내서 - 설치하고 컨테이너 실행하기](https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html)
+- [초보를 위한 도커 안내서 - 이미지 만들고 배포하기](https://subicura.com/2017/02/10/docker-guide-for-beginners-create-image-and-deploy.html)
 - [Docker-HOWTO](http://pyrasis.com/Docker/Docker-HOWTO)
 - [도커 무작정 따라하기 : 도커가 처음인 사람도 60분이면 웹서버를 올릴 수 있습니다!](https://www.slideshare.net/pyrasis/docker-fordummies-44424016?next_slideshow=1)
