@@ -108,8 +108,78 @@ setInterval(intervalRend, 1000);
 # shouldComponentUpdate
 - 변화가 있는 컴포넌트만 랜더링 하도록 하는 것
     - 변화가 없는 컴포넌트는 재렌더링 하지 않도록 함
-- 구현하지 않았을 시에는 ```return true;```로 처리되도록 default 구현되 있음
+- 구현하지 않았을 시에는 ```return true;```로 처리되도록 default 구현되 있
 
+--- 
+*[React & Expression를 이용한 웹 어플리케이션 개발하기 -  by.velopert](https://www.inflearn.com/course/react-강좌-velopert)*
+
+# React.js
+- javascript library
+
+## 장점과 단점
+
+### 장점
+- VirtualDOM
+- 배우기 간단하다
+    - 복잡함이 별로 없어서 
+        - 코드를 분리하지 않고 component만 관리하기 때문에 복잡함이 없다
+- 뛰어난 GC
+    - 메모리 관리, 성능이 효율적이다
+- 서버 & 클라이언트 렌더링이 가능하다
+    - 초기 구동 딜레이 & SEO (검색엔진최적화)
+        - 초기에 서버에서 만든 html을 뿌릴수 있다
+        - SEO 
+- 매우 간편한 UI 수정 및 재사용성
+- 다른 프레임워크나 라이브러리와 혼용가능
+
+### 단점
+- view only
+- IE8 이하  지원 안함
+    - react version 14 이하버전을 사용하고, 이를 호환시켜주는 polyfill을 사용하면 사용 가능
+
+## 실습
+
+### JSX
+- javascript 사용 : {...javascript code...}
+- JSX안에서 style을 사용할 때는 key가 camelCase인 객체가 사용된다
+
+### props
+- 컴포넌트 내부의 immutable Data
+- JSX 내부에 {this.props.propsName}
+- 컴포넌트를 사용 할 때, <> 괄호 안에 propsName="value"
+- this.props.children은 기본적으로 갖고있는 props로서, <Cpnt> 여기에 있는 값들이 들어간다 </Cpnt>
+
+#### defaultProps : 기본값 설정
+- Component의 선언이 끝난후, ```ComponentName.defaultProps = {...}```로 설정
+```jsx harmony
+class ToyComponent extends Component { render() { return ({ /*...*/ }); }}
+
+ToyComponent.defaultProps = {
+  name:'Unknown'
+}
+```
+
+#### propsType : props data type설정
+- props 값의 data type을 설정함
+```jsx harmony
+class ToyComponent extends Component { render() { return ({ /*...*/ }); }}
+
+ToyComponent.propTypes = {
+  name:React.PropTypes.string,
+  number:React.PropTypes.number.isRequired
+}
+
+ToyComponent.defaultProps = {
+  name:'Unknown',
+  number:0
+}
+```
+
+### state
+- 유동적인 데이터
+- JSX 내부에 {this.state.stateName}
+- 초기값 설정이 필수, 생성자(constructor)에서 this.state = {}로 설정
+- 값을 수정할 때에는 this.setState({...}), 렌더링 된 다음엔 this.state = 절대 사용하지 말것
 
 ---
 ## 참고문헌
