@@ -153,7 +153,7 @@ var b = function bb() {
 ### (unnamed/annonymous) function expression ((익명) 함수표현식)
 ```javascript
 var c = function() { //변수 선언 & 익명함수 선언
-    return 'c';  // 변수에 익명함수를 할당
+    return 'c';
 }
 ```
 

@@ -103,6 +103,12 @@ setInterval(intervalRend, 1000);
 # Components and Props
 - Components는 UI를 independent 하게 분할할 수 있게 해준다. 
 
+---
+
+# shouldComponentUpdate
+- 변화가 있는 컴포넌트만 랜더링 하도록 하는 것
+    - 변화가 없는 컴포넌트는 재렌더링 하지 않도록 함
+- 구현하지 않았을 시에는 ```return true;```로 처리되도록 default 구현되 있음
 
 
 ---
