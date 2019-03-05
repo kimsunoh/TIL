@@ -179,7 +179,59 @@ ToyComponent.defaultProps = {
 - 유동적인 데이터
 - JSX 내부에 {this.state.stateName}
 - 초기값 설정이 필수, 생성자(constructor)에서 this.state = {}로 설정
-- 값을 수정할 때에는 this.setState({...}), 렌더링 된 다음엔 this.state = 절대 사용하지 말것
+- 값을 수정할 때에는 this.setState({...}), 렌더링 된 다음엔 this.state = 절대 사용하지 않아야한다
+    - this.state 에 직접 대입 연산자를 사용하는 것은 react의 일부 component만 리렌더링하는 장점을 사용하지 않는 것. 즉, react의 컨셉을 무시하는 행동
+    - *즉, ```state```에는 페이지에 렌더링되는 정보들이 저장되어야함*
+
+### Component Mapping
+- 데이배열을 리액트에서 렌더링할 땐, JS 내장함수인 ```Map```을 사용한다
+- map() 메소드는 파라미터로 전달 된 함수를 통하여 배열 내의 각 요소를 처리해서 그 결과로 새로운 배열을 생성한다
+    - map() 함수 call할때의 파라미터 ```arr.map(callback[, thisArg])```
+        - callback: 새로운 배열 요소를 생성하는 함수. 세가지 인수를 가진다
+            - currentValue: 현재 처리되고 있는 요소
+            - index: 현재 처리되고 있는 요소의 index 값
+            - array: 메소드가 불려진 배열
+        - thisArg: callback 함수 내부에서 사용 할 this 값을 설정
+- e.g.
+```jsx harmony
+let number = [1,2,3,4,5];
+
+let result = numbers.map((num) => {
+	return num*num;
+});
+```
+
+## ReactProject 만들기
+- ```package.json```의 ```scripts```에서 프로젝트 build 시에 사용 할 수 있는 스크립트를 설정할 수 있다
+
+## Component LifeCycle API
+- component 생성 & 완료 API
+    - constructor
+    - componentWillMount
+    - render
+    - componentDidMount
+- prop 변화 & 업데이트 & 완료
+    - componentWillReceiveProps
+    - shouldComponentUpdate
+        - component가 업데이트가 되었는지 판단하는 API
+        - 판단 로직에서 ```false```가 리턴되면, component에 대한 lifecycle이 멈
+    - componentWillUpdate
+    - render
+    - componentDidUpdate
+- stete 변화
+    - 바로 shouldComponentUpdate 실행
+    - 나머진 위와 같은 실행순서
+- component 제거
+    - componentWillUnmount
+
+## localStorage
+- html5부터 지원되는 저장 공간
+- cookie와 비슷함
+    - 다른점은 저장용량, localStorage는 server로 전송되지 않음, localStorage는 text형태로만 저장이됨
+```
+localStorage.state = JSON.stringify(object); // 저장할 때
+JSON.parse(localStorage.state); // 꺼내서 사용할 때
+```
 
 ---
 ## 참고문헌
