@@ -95,8 +95,19 @@
 2. `store`와 `component` 사이의 커뮤니케이션을 준비한다
     - `root component`는 공급 component로서 서브 `component`를 감싸고 `store`와 공급 `component`사이를 연결한다
     - 공급 `component`는 기본적으로 `component`를 업데이트하기 위한 네트워크를 생성한다
-    
-    
+3. `action` callback을 준비한다
+    - dumb component 가 action 과 쉽게 일할 수 있게 smart component는 bindActionCreator()로 action callback을 준비한다
+
+# the Data flow
+1. `view`가 `action`을 요청하고, `action Controller`가 포맷을 변환한 뒤 돌려준다
+2. `bindActionCreator()`가 준비과정에서 사용되었으면 자동으로 `action`이 보내진다. 그게 아니라면 `view`가 직접 `action`을 보낸다
+3. `store`가 `action`을 받는다. 현재 애플리케이션 상태 트리와 `action`을 `root reducer`에게 보낸다
+4. `root reducer`는 상태 트리를 조각으로 나눈 뒤 알맞은 서브 `reducer`로 상태 조각들을 넘겨준다
+5. 서브 `reducer`는 받은 상태 조각을 복사한 뒤, 그 복사본을 변경하고 `root reducer`에게 변경된 복사본을 돌려준다
+6. 모든 서브 `reducer`가 변경 된 상태 조각들을 돌려주면, `root reducer`는 이 상태 조각들을 한데 모아 상태 트리로 만든 뒤 `store`로 돌려준다. `store`는 새로운 상태 트리를 옛날 상태 트리와 바꾼다
+7. `store`는 `view layer binding`에게 애플리케이션 상태가 변경되었다는 것을 알린다
+8. `view layer binding`는 `store`에게 새로운 상태를 보내달라고 요청한다
+9. `view layer binding`은 `view`에게 화면을 업데이트하도록 요청한다
 
 ---
 
