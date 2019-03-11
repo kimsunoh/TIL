@@ -161,7 +161,10 @@
 4. store: 모든 action을 받고 필요한 action만 골라서 상태를 변경하고, 작업이 완료되면 자신을 subscribe하고 있는 controller view 에게 event를 알린다
 5. controller view: store에게 변경된 상태를 요청하고, 응답을 받으면 자신 하위의 모든 view에게 새로운 상태에 맞게 렌더링하도록 변경상태를 알린다
 
-
+# Why Redux?
+- redux를 쓰면 상태관리를 컴포넌트 바깥에서 한다
+    - 상태값을 컴포넌트에 종속 시키지 않고 컴포넌트의 바깥에서 관리 할 수 있게 된
+- 
 ---
 ## 용어
 - 순수함수(pure function)
@@ -173,3 +176,4 @@
 - [Redux:배경지식|MVC,FLUX](https://www.youtube.com/watch?v=LRUQfJLuPA8)
 - [Flux로의 카툰 안내서](http://bestalign.github.io/2015/10/06/cartoon-guide-to-flux/)
 - [Redux로의 카툰 안내서](http://bestalign.github.io/2015/10/26/cartoon-intro-to-redux/)
+- [리덕스(Redux)를 왜 쓸까? 그리고 리덕스를 편하게 사용하기 위한 발악 (i)](https://velopert.com/3528)

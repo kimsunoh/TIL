@@ -4,7 +4,7 @@
 - 주요한 네가지 개념이 있다
     - entry, output, loader, plugins
 - 터미널에서 ```webpack``` 커멘드로 빌드 할 수 있다
-- webpack4의 문법이 이전 버전보다 접근이 쉬워졌다 
+- webpack4의 문법이 이전 버전보다 접근이 쉬워졌 
 
 ## entry
 - 의존성 그래프의 시작점
@@ -40,3 +40,12 @@ module.export = {
 - none-JS file을 webpack이 이해하게 설정해수는 부분
 - webpack은 JS 파일만 읽을 수 있으므로, 어떤 표현식을 사용한 파일인지 명시해 주는 부분
 
+---
+1.
+```
+$ npm install -g webpack webpack-dev-servers
+```
+- webpack: 브라우저 위에서 import(require)를 할 수 있게 해주고 자바스크립트 파일들을 하나로 합쳐준다
+- webpack-dev-server: 별도의 서버를 구축하지 않고도 static 파일을 다루는 웹서버를 열 수 있으며 hot-loader 를 통하여 코드가 수정 될 때마다 자동으로 리로드 되게 할 수 있습니다
+
+---
