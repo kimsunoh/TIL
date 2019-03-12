@@ -201,6 +201,20 @@ let result = numbers.map((num) => {
 });
 ```
 
+### 절대경로로 파일 불러 올 수 있도록 설정하기
+- `.env` `NODE_PATH` 설정
+```
+NODE_PATH=src
+```
+- `jsconfig.json` 에디터 설정
+```json
+{
+  "compilerOptions": {
+      "baseUrl": "./src"  // all paths are relative to the baseUrl
+  }
+}
+```
+
 ## ReactProject 만들기
 - ```package.json```의 ```scripts```에서 프로젝트 build 시에 사용 할 수 있는 스크립트를 설정할 수 있다
 
@@ -232,6 +246,8 @@ let result = numbers.map((num) => {
 localStorage.state = JSON.stringify(object); // 저장할 때
 JSON.parse(localStorage.state); // 꺼내서 사용할 때
 ```
+
+
 
 ---
 ## 참고문헌
