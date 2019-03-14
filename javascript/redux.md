@@ -130,6 +130,21 @@
 - 가능한 액션들을 파악하기 쉽다
     - 프로젝트의 행동 생성자 파일을 보면 시스템에서 제공하는 API가 지원하는 *모든 상태변경*을 바로 확인할 수 있다
 
+#### createAction 사용법
+```js
+/**
+ * actionCreateFunction = createAction(type, payload, meta)
+ * 위의 세개를 param으로 넘겨서 생성된 액션생성함수 actionCreateFunction 이 생성된다
+ */
+import {createAction} from "redux-actions";
+
+export const sample = createAction('SAMPLE', (value) => value*value, (value) => value-1 );
+action = sample(3);
+// {type:'SAMPLE', payload: 9, meta: 2}
+```
+
+
+
 ### Dispatcher
 - 기본적으로 callback이 등록되어 있는 곳
 - 액션을 보낼 필요가 있는 모든 store를 가지고 있고, 액션 생성자로부터 action이 넘어오면 여러 store에 action을 보낸다
@@ -164,7 +179,7 @@
 # Why Redux?
 - redux를 쓰면 상태관리를 컴포넌트 바깥에서 한다
     - 상태값을 컴포넌트에 종속 시키지 않고 컴포넌트의 바깥에서 관리 할 수 있게 된
-- 
+
 ---
 ## 용어
 - 순수함수(pure function)
