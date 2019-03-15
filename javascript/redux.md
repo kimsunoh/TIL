@@ -143,8 +143,6 @@ action = sample(3);
 // {type:'SAMPLE', payload: 9, meta: 2}
 ```
 
-
-
 ### Dispatcher
 - 기본적으로 callback이 등록되어 있는 곳
 - 액션을 보낼 필요가 있는 모든 store를 가지고 있고, 액션 생성자로부터 action이 넘어오면 여러 store에 action을 보낸다
