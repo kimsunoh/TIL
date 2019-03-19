@@ -189,4 +189,6 @@ action = sample(3);
 - [Redux:배경지식|MVC,FLUX](https://www.youtube.com/watch?v=LRUQfJLuPA8)
 - [Flux로의 카툰 안내서](http://bestalign.github.io/2015/10/06/cartoon-guide-to-flux/)
 - [Redux로의 카툰 안내서](http://bestalign.github.io/2015/10/26/cartoon-intro-to-redux/)
+- [Redux tutorial kor version - 리덕스 배우기](https://lunit.gitbook.io/redux-in-korean/)
 - [리덕스(Redux)를 왜 쓸까? 그리고 리덕스를 편하게 사용하기 위한 발악 (i)](https://velopert.com/3528)
+- [리액트 관련 아티클 링크](https://github.com/reactkr/learn-react-in-korean)
