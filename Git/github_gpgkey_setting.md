@@ -50,7 +50,7 @@ $ gpg --list-secret-keys --keyid-format LONG
 // git config 에 GPG key를 사용 설정
 $ git config --global user.signingkey {gpg private key code}
 //항상 commit에 sign을 하겠다는 명령어
-$ git config --global commit.gpgsigntrue 
+$ git config --global commit.gpgsign true 
 
 // github에 등록하기 위한 GPG pair key 생성
 $ gpg --armor --export {gpg private key code}
