@@ -60,8 +60,11 @@ $ gpg --armor --export {gpg private key code}
 
 // 커밋 후 sign 이 됬는지 확인하는 명령어
 $ git log --pretty="format: %h %G? %aN %s"
+> eb5d645 G kimsunoh DOC modify command line
+> ae70d0a N kimsunoh DOC add reference link
+> 3fff954 N kimsunoh DOC change git commit example
 
-> 
+// format에서 %G에 위치한 keyword가 'G'이면 sign이 된것, 'N'이면 nosign 인 것이다.
 ```
 
 ---
