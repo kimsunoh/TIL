@@ -9,11 +9,10 @@
 - 실제 서비스 로직들은 모두 saga 내부에서 처리하며, 그 결과를 다시 action으로 dispatch 한다
     - 그 외의 모든 것들은 순수함수로 side-effect 없이 구현할 수 있다
 
-
-
 ---
 ## 참고링크
 - [Redux-Saga: Beginner tutorial](https://redux-saga.js.org)
 - [Redux-Saga: Beginner tutorial (kr version)](https://mskims.github.io/redux-saga-in-korean/)
 - [Redux-Saga: 사이드 이펙트 관리](https://meetup.toast.com/posts/136)
 - [redux-saga로 비동기처리와 분투하다. (번역본)](https://github.com/reactkr/learn-react-in-korean/blob/master/translated/deal-with-async-process-by-redux-saga.md)
+- [왜 리덕스 사가(Redux-saga) 인가?](https://gracefullight.github.io/2017/12/06/Why-redux-saga/) **
