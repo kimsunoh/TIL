@@ -47,14 +47,21 @@ $ gpg --list-secret-keys --keyid-format LONG
 
 > sec   rsaNNNN/{gpg private key code} 2019-03-21 [SC] [expires: 2020-03-20]
         
+// git config 에 GPG key를 사용 설정
+$ git config --global user.signingkey {gpg private key code}
+//항상 commit에 sign을 하겠다는 명령어
+$ git config --global commit.gpgsigntrue 
+
 // github에 등록하기 위한 GPG pair key 생성
 $ gpg --armor --export {gpg private key code}
 
 // 출력으로 나온 GPG pair  Key를 복사해서 등록하기
 // Personal settings > SSH and GPG keys > GPG keys > "New GPG key" 버튼 클릭후 복사내용 붙여넣기
 
-// git config 에 GPG key를 사용 설정
-$ git config --global commit.gpgsigntrue
+// 커밋 후 sign 이 됬는지 확인하는 명령어
+$ git log --pretty="format: %h %G? %aN %s"
+
+> 
 ```
 
 ---
