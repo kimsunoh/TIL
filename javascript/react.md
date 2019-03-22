@@ -250,8 +250,12 @@ JSON.parse(localStorage.state); // 꺼내서 사용할 때
 
 
 ---
-## 참고문헌
+## 참고링크
 - [React Docs](https://reactjs.org/docs/hello-world.html)
 - [더북 리액트를 다루는 기술](https://thebook.io/006946/)
 - [누구든지 하는 리액트 by.velopert(김민준)](https://react-anyone.vlpt.us)
 - [누구든지 하는 리액트 by.velopert(김민준) inflearn 강의](https://www.inflearn.com/course/react-velopert/)
+
+---
+## 기타 참고 링크
+- [react-router quick start](https://reacttraining.com/react-router/web/guides/quick-start)
