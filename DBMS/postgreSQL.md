@@ -20,13 +20,49 @@
 
 # Local install
 ```bash
-$ brew install postgresql@9.5
-$ 
-$ postgres -V
+brew install postgresql@9.5
+ 
+postgres -V
 > postgres (PostgreSQL) 11.1
+ 
+// setting for 9.5.15
+// you need to have postgresql@9.5 
+echo 'export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"' >> ~/.zshrc
+ 
+// compilers to find postgresql@9.5 
+export LDFLAGS="-L/usr/local/opt/postgresql@9.5/lib"
+export CPPFLAGS="-I/usr/local/opt/postgresql@9.5/include"
+ 
+// pkg-config to find postgresql@9.5
+PKG_CONFIG_PATH="/usr/local/opt/postgresql@9.5/lib/pkgconfig"
+ 
+// postgresql run cmd alias add
+echo 'alias pg-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"' >> ~/.zshrc
+echo 'alias pg-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"' >> ~/.zshrc
+brew services stop postgresql
+
+// run to postgres
+brew services start postgresql
+
+// DATABASE 생성 (cmd)
+createdb postgretest
+// DATABASE 생성
+dbname=# CREATE USER postgretest WITH PASSWORD 'teset';
+CREATE ROLE
+
+// postgres 접속
+psql postgretest
+
+// User create and grant add
+postgretest=# GRANT ALL PRIVILEGES ON DATABASE postgrestest to testuser;
+CREATE ROLE
+
+// user로 접속
+psql postgrestest -u testuser -W 
 ```
 ---
 ## 참고링크
 - [PostgreSQL](https://ko.wikipedia.org/wiki/PostgreSQL)
 - [한눈에 살펴보는 PostgreSQL](http://d2.naver.com/helloworld/227936)
 - [getting started with postgresql on mac osx](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb)
+- [lesstif - PostgreSQL 설치](https://www.lesstif.com/pages/viewpage.action?pageId=31850584)
