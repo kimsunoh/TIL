@@ -4,68 +4,79 @@
 
 ## GPG 키 생성
 - gpg 설치 : [설치 파일](https://gpgtools.org) 다운받은 후 설치
+
+## GPG 키 설정
+* osX 환경에서 설정함 *
+
 ```
-// osX 환경에서 설정함
-$ gpg --full-generate-key
+gpg --full-generate-key
 
 // terminel output question
-Please select what kind of key you want:
-   (1) RSA and RSA (default)
-   (2) DSA and Elgamal
-   (3) DSA (sign only)
-   (4) RSA (sign only)
-Your selection? 
-
-RSA keys may be between 1024 and 4096 bits long.
-What keysize do you want? (2048)
-
-Please specify how long the key should be valid.
-         0 = key does not expire
-      <n>  = key expires in n days
-      <n>w = key expires in n weeks
-      <n>m = key expires in n months
-      <n>y = key expires in n years
-Key is valid for?
-
-Is this correct? (y/N) 
-
-GnuPG needs to construct a user ID to identify your key.
-
-Real name: 
-Email address: 
-Comment:
-You selected this USER-ID:
-    "myName <Email Address>"
-
-Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? 
-
-// then create gpg key, output message like this
+> Please select what kind of key you want:
+>   (1) RSA and RSA (default)
+>    (2) DSA and Elgamal
+>    (3) DSA (sign only)
+>    (4) RSA (sign only)
+> Your selection? 
+> 
+> RSA keys may be between 1024 and 4096 bits long.
+> What keysize do you want? (2048)
+> 
+> Please specify how long the key should be valid.
+>          0 = key does not expire
+>       <n>  = key expires in n days
+>       <n>w = key expires in n weeks
+>       <n>m = key expires in n months
+>       <n>y = key expires in n years
+> Key is valid for?
+> 
+> Is this correct? (y/N) 
+> 
+> GnuPG needs to construct a user ID to identify your key.
+> 
+> Real name: 
+> Email address: 
+> Comment:
+> You selected this USER-ID:
+>     "myName <Email Address>"
+> 
+> Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? 
+```
+- GPG key 생성 결과 출력
+```
 gpg: key {gpg private key code} marked as ultimately trusted
-
-// gpg key 확인 명령어
-$ gpg --list-secret-keys --keyid-format LONG
-
+```
+- gpg key 확인 명령어
+```
+gpg --list-secret-keys --keyid-format LONG
 > sec   rsaNNNN/{gpg private key code} 2019-03-21 [SC] [expires: 2020-03-20]
-        
-// git config 에 GPG key를 사용 설정
-$ git config --global user.signingkey {gpg private key code}
-//항상 commit에 sign을 하겠다는 명령어
-$ git config --global commit.gpgsign true 
+```
 
-// github에 등록하기 위한 GPG pair key 생성
-$ gpg --armor --export {gpg private key code}
+- git config 에 GPG key를 사용 설정
+```
+git config --global user.signingkey {gpg private key code}
+```
 
-// 출력으로 나온 GPG pair  Key를 복사해서 등록하기
-// Personal settings > SSH and GPG keys > GPG keys > "New GPG key" 버튼 클릭후 복사내용 붙여넣기
+- 항상 commit에 sign을 하겠다는 명령어
+```
+git config --global commit.gpgsign true 
+```
 
-// 커밋 후 sign 이 됬는지 확인하는 명령어
+- github에 등록하기 위한 GPG pair key 생성
+```
+gpg --armor --export {gpg private key code}
+```
+    - 출력으로 나온 GPG pair  Key를 복사해서 등록하기
+    - Personal settings > SSH and GPG keys > GPG keys > "New GPG key" 버튼 클릭후 복사내용 붙여넣기
+
+- 커밋 후 sign 이 됬는지 확인하는 명령어
+```
 $ git log --pretty="format: %h %G? %aN %s"
 > eb5d645 G kimsunoh DOC modify command line
 > ae70d0a N kimsunoh DOC add reference link
 > 3fff954 N kimsunoh DOC change git commit example
-
-// format에서 %G에 위치한 keyword가 'G'이면 sign이 된것, 'N'이면 nosign 인 것이다.
 ```
+    - format에서 %G에 위치한 keyword가 'G'이면 sign이 된것, 'N'이면 nosign 인 것이다.
 
 ---
 ## 참고 링크
