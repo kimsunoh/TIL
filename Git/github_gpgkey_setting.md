@@ -65,8 +65,9 @@ git config --global commit.gpgsign true
 - github에 등록하기 위한 GPG pair key 생성
 ```
 gpg --armor --export {gpg private key code}
+
 ```
-    - 출력으로 나온 GPG pair  Key를 복사해서 등록하기
+- 출력으로 나온 GPG pair  Key를 복사해서 등록하기
     - Personal settings > SSH and GPG keys > GPG keys > "New GPG key" 버튼 클릭후 복사내용 붙여넣기
 
 - 커밋 후 sign 이 됬는지 확인하는 명령어
@@ -76,7 +77,7 @@ $ git log --pretty="format: %h %G? %aN %s"
 > ae70d0a N kimsunoh DOC add reference link
 > 3fff954 N kimsunoh DOC change git commit example
 ```
-    - format에서 %G에 위치한 keyword가 'G'이면 sign이 된것, 'N'이면 nosign 인 것이다.
+- format에서 %G에 위치한 keyword가 'G'이면 sign이 된것, 'N'이면 nosign 인 것이다.
 
 ---
 ## 참고 링크
