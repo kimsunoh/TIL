@@ -62,4 +62,5 @@
 ## 참고 링크
 - [조대협의 블로그 - REST API의 이해와 설계 #1 개념 소개](https://bcho.tistory.com/953)
 - [조대협의 블로그 - REST API의 이해와 설계 #2 API 설계 가이드](https://bcho.tistory.com/954)
-- REST API 디자인 규칙 - 일관성 있는 웹 서비스 인터페이스 설계를 위한 (저 마크마세, 한빛미디어) 
+- [조대협의 블로그 - REST API의 이해와 설계 #3 API 보안](https://bcho.tistory.com/955)
+- REST API 디자인 규칙 - 일관성 있는 웹 서비스 인터페이스 설계를 위한 (저 마크마세, 한빛미디어)
