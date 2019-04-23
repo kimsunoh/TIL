@@ -13,6 +13,12 @@ const [count, setCount] = useState(0);
 - useState의 arg로는 state의 initial 값을 준다
 
 ## useEffect
+- hook으로 만든 state의 변경을 handling 하는 func
+```
+useEffect(()=>{
+    // 처리 로직
+}, [count]);
+```
 
 
 ---
