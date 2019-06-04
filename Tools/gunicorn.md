@@ -11,3 +11,4 @@
 ---
 ## 참고링크
 - [Gunicorn django 서비스 구동](https://wikidocs.net/6601#gunicorn)
+- [Django Gunicorn psql setting](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04)
