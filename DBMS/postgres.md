@@ -60,9 +60,14 @@ CREATE ROLE
 // user로 접속
 psql postgrestest -u testuser -W 
 ```
+
+# pgBouncer
+- 
+
 ---
 ## 참고링크
 - [PostgreSQL](https://ko.wikipedia.org/wiki/PostgreSQL)
 - [한눈에 살펴보는 PostgreSQL](http://d2.naver.com/helloworld/227936)
 - [getting started with postgresql on mac osx](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb)
 - [lesstif - PostgreSQL 설치](https://www.lesstif.com/pages/viewpage.action?pageId=31850584)
+- []
