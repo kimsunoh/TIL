@@ -49,3 +49,6 @@ $ npm install -g webpack webpack-dev-servers
 - webpack-dev-server: 별도의 서버를 구축하지 않고도 static 파일을 다루는 웹서버를 열 수 있으며 hot-loader 를 통하여 코드가 수정 될 때마다 자동으로 리로드 되게 할 수 있습니다
 
 ---
+
+## 참고링크
+- [Webpack2와 모듈번들링을 위한 초보자 가이드](https://github.com/FEDevelopers/tech.description/wiki/Webpack2와-모듈번들링을-위한-초보자-가이드)
