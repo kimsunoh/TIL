@@ -78,29 +78,29 @@ $ docker pull ubuntu:latest
 // 이미지 목록 출력하기
 $ docker images
 
-// 컨테이너 생성하기
+// 컨테이너 실행하기
 $ docker run -i -t --name hello ubuntu /bin/bash
 
-// 컨테이너 목록 확인하기
+// 컨테이너 실행 목록 확인하기
 $ docker ps -a
 
 // 컨테이너 시작하기
-$ docker start {docker-container-name}
+$ docker container start {docker-container-name}
 
 // 컨테이너 재시작하기
-$ docker restart {docker-container-name}
+$ docker container restart {docker-container-name}
 
 // 컨테이너에 접속하기
-$ docker attach {docker-container-name}
+$ docker container attach {docker-container-name}
 
 // 컨테이너 정지하기
-$ docker stop {docker-container-name}
+$ docker container stop {docker-container-name}
 
 // 컨테이너 삭제하기
-$ docker rm {docker-container-name}
+$ docker container rm {docker-container-name}
 
 // 이미지 삭제하기
-$ docker rmi ubuntu:latest
+$ docker image rm {docker-container-name}
 
 // 모든 컨테이너 삭제하기
 $ docker rm `docker ps -aq`
