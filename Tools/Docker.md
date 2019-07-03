@@ -150,8 +150,8 @@ $ docker inspect hello-nginx
 
 ---
 ## 참고문헌
+- [docker - Get started](https://docs.docker.com/get-started/)
 - [초보를 위한 도커 안내서 - 도커란 무엇인가?](https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html)
 - [초보를 위한 도커 안내서 - 설치하고 컨테이너 실행하기](https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html)
 - [초보를 위한 도커 안내서 - 이미지 만들고 배포하기](https://subicura.com/2017/02/10/docker-guide-for-beginners-create-image-and-deploy.html)
 - [Docker-HOWTO](http://pyrasis.com/Docker/Docker-HOWTO)
-- [도커 무작정 따라하기 : 도커가 처음인 사람도 60분이면 웹서버를 올릴 수 있습니다!](https://www.slideshare.net/pyrasis/docker-fordummies-44424016?next_slideshow=1)
