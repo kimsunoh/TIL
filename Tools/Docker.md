@@ -38,10 +38,6 @@
 - 각 이미지는 의존관계가 형성
 - 컨테이너로 실행할 때는 베이스 이미지와 바뀐 부분을 합쳐서 실행
 
-## 로고로 알아보는 도커
-- docker : 부두 노동자를 뜻함. 컨테이너를 다루는 도커의 기능과 비슷함 
--
-
 # Docker 기본 사용법
 - 설치는 [dockerhub - Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)에서 Doker.dmg 다운 후 진행
 
