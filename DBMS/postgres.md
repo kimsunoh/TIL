@@ -62,6 +62,7 @@ psql postgrestest -u testuser -W
 ```
 
 # pgBouncer
+- connections pooling service for Postgres
 - 
 
 ---
@@ -70,4 +71,5 @@ psql postgrestest -u testuser -W
 - [한눈에 살펴보는 PostgreSQL](http://d2.naver.com/helloworld/227936)
 - [getting started with postgresql on mac osx](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb)
 - [lesstif - PostgreSQL 설치](https://www.lesstif.com/pages/viewpage.action?pageId=31850584)
-- []
+- [PgBouncer document](https://pgbouncer.github.io/usage.html)
+- [Understanding Postgres connection pooling with PgBouncer](https://hackernoon.com/understanding-postgres-connection-pooling-with-pgbouncer-unlisted-draft-bdb7ebf073ab)
